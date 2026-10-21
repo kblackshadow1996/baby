@@ -207,6 +207,8 @@
   text-align: center;
   box-shadow: 0 12rpx 28rpx rgba(255, 143, 163, 0.4);
   z-index: 20;
+  /* Task18：底部安全区适配 */
+  margin-bottom: env(safe-area-inset-bottom);
 }
 
 /* ===== 添加/编辑弹层 ===== */

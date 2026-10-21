@@ -150,6 +150,8 @@
   align-items: center;
   justify-content: center;
   z-index: 50;
+  /* Task18：底部安全区适配 */
+  margin-bottom: env(safe-area-inset-bottom);
 }
 .fab__icon {
   color: #FFFFFF;

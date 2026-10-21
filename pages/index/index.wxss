@@ -301,6 +301,10 @@
   margin-top: 6rpx;
   font-size: 24rpx;
   color: var(--color-text-sub, #9B9B9B);
+  /* Task18：过敏原名称过多时单行省略，避免撑乱卡片 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .index__allergy-arrow {
   flex-shrink: 0;

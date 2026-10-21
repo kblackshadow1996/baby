@@ -302,6 +302,13 @@ Page({
   /** 我的食谱空态：创建食谱 */
   onCreateTap() {
     wx.navigateTo({ url: "/pages/recipe/create/create" });
+  },
+  /** 转发好友（Task18，纯分享无副作用） */
+  onShareAppMessage() {
+    return {
+      title: "小饭团成长记 - 记录宝宝的每一餐成长",
+      path: "/pages/index/index"
+    };
   }
 });
 // 导出模块函数，供复用（在小程序运行环境中 module.exports 可被 require）

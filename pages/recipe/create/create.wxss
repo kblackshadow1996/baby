@@ -255,7 +255,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 16rpx 24rpx;
+  /* Task18：底部安全区适配，避免被 Home 指示条遮挡 */
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
   background-color: var(--color-card, #FFFFFF);
   box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.04);
   z-index: 10;

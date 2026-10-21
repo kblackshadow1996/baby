@@ -326,5 +326,12 @@ Page({
    */
   onGoAddBaby() {
     wx.navigateTo({ url: "/pages/baby/profile/profile" });
+  },
+  /** 转发好友（Task18，纯分享无副作用） */
+  onShareAppMessage() {
+    return {
+      title: "小饭团成长记 - 记录宝宝的每一餐成长",
+      path: "/pages/index/index"
+    };
   }
 });

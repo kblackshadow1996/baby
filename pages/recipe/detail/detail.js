@@ -282,6 +282,19 @@ Page({
     if (this.data.recipeId) {
       this.fetchRecipe(this.data.recipeId);
     }
+  },
+  /** 转发好友：用食谱名与月龄拼标题（Task18，纯分享无副作用） */
+  onShareAppMessage() {
+    const recipe = this.data.recipe;
+    const monthText = this.data.monthText;
+    const title =
+      recipe && recipe.title
+        ? `${recipe.title}${monthText ? ` - 适合${monthText}的辅食` : ""}`
+        : "小饭团成长记 - 宝宝辅食食谱";
+    return {
+      title,
+      path: `/pages/recipe/detail/detail?id=${this.data.recipeId}`
+    };
   }
 });
 // 导出模块函数，供测试/复用（小程序运行环境 module.exports 可被 require）
