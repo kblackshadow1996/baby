@@ -1,0 +1,12 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "用户登录云函数：按 openid 查询/创建 users 记录",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

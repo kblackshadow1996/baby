@@ -1,0 +1,131 @@
+<nav-bar title="{{navTitle}}" showBack="{{true}}" />
+
+<!-- ============ add 模式：记录过敏反应 ============ -->
+<view wx:if="{{mode === 'add'}}" class="page">
+  <view wx:if="{{loading}}" class="loading-tip text-sub">加载中…</view>
+
+  <!-- 发生日期 -->
+  <view class="card form-block">
+    <view class="form-block__label">发生日期</view>
+    <view class="date-text">{{date}}</view>
+  </view>
+
+  <!-- 症状多选 -->
+  <view class="card form-block">
+    <view class="form-block__label">
+      反应症状<text class="form-block__req">*</text>
+    </view>
+    <view class="chips">
+      <view
+        wx:for="{{symptomOptions}}"
+        wx:key="value"
+        class="chip {{selectedSymptoms.indexOf(item.value) >= 0 ? 'chip--on' : ''}}"
+        data-value="{{item.value}}"
+        bindtap="onToggleSymptom"
+      >{{item.label}}</view>
+    </view>
+    <input
+      wx:if="{{selectedSymptoms.indexOf('其他') >= 0}}"
+      class="field-input"
+      placeholder="请描述其他症状"
+      value="{{otherSymptom}}"
+      bindinput="onOtherSymptomInput"
+    />
+  </view>
+
+  <!-- 疑似过敏原 -->
+  <view class="card form-block">
+    <view class="form-block__label">
+      疑似过敏原<text class="form-block__req">*</text>
+    </view>
+    <view wx:if="{{foodCandidates.length > 0}}" class="form-block__hint text-sub">勾选当餐可疑食物（默认全选）</view>
+    <view wx:if="{{foodCandidates.length > 0}}" class="chips">
+      <view
+        wx:for="{{foodCandidates}}"
+        wx:key="name"
+        class="chip chip--food {{item.selected ? 'chip--on' : ''}}"
+        data-index="{{index}}"
+        bindtap="onToggleFood"
+      >{{item.name}}</view>
+    </view>
+    <view wx:else class="form-block__hint text-sub">没有可带入的食物，请手动填写疑似过敏原</view>
+    <input
+      class="field-input"
+      placeholder="补充一个额外的疑似过敏原（可选）"
+      value="{{manualFood}}"
+      bindinput="onManualFoodInput"
+    />
+  </view>
+
+  <!-- 严重程度（可选，预留） -->
+  <view class="card form-block">
+    <view class="form-block__label">严重程度<text class="form-block__optional">（可选）</text></view>
+    <view class="chips">
+      <view
+        wx:for="{{severityOptions}}"
+        wx:key="value"
+        class="chip chip--sev chip--sev-{{item.value}} {{severity === item.value ? 'chip--on' : ''}}"
+        data-value="{{item.value}}"
+        bindtap="onSelectSeverity"
+      >{{item.label}}</view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="card form-block">
+    <view class="form-block__label">备注<text class="form-block__optional">（可选）</text></view>
+    <textarea
+      class="field-textarea"
+      placeholder="补充描述，如出现时间、持续多久等"
+      value="{{note}}"
+      bindinput="onNoteInput"
+      maxlength="300"
+    />
+  </view>
+
+  <view class="actions safe-bottom">
+    <button class="btn-primary" bindtap="onSave" disabled="{{saving}}">
+      {{saving ? '保存中…' : '保存过敏记录'}}
+    </button>
+  </view>
+</view>
+
+<!-- ============ view 模式：过敏记录详情 ============ -->
+<view wx:elif="{{mode === 'view'}}" class="page">
+  <view wx:if="{{loading}}" class="loading-tip text-sub">加载中…</view>
+  <block wx:elif="{{viewRecord}}">
+    <view class="card view-block">
+      <view class="view-row">
+        <text class="view-row__label">发生日期</text>
+        <text class="view-row__value">{{viewRecord.dateText}}</text>
+      </view>
+      <view wx:if="{{viewRecord.mealRecordId}}" class="view-row">
+        <text class="view-row__label">来源</text>
+        <text class="view-row__value">关联某次用餐</text>
+      </view>
+      <view wx:if="{{viewRecord.severityLabel}}" class="view-row">
+        <text class="view-row__label">严重程度</text>
+        <text class="view-row__value">{{viewRecord.severityLabel}}</text>
+      </view>
+    </view>
+
+    <view class="card view-block">
+      <view class="view-block__title">反应症状</view>
+      <view class="chips">
+        <view wx:for="{{viewRecord.symptoms}}" wx:key="*this" class="tag tag-warning view-tag">{{item}}</view>
+      </view>
+    </view>
+
+    <view class="card view-block">
+      <view class="view-block__title">疑似过敏原</view>
+      <view class="chips">
+        <view wx:for="{{viewRecord.suspectedFoods}}" wx:key="*this" class="tag tag-yellow view-tag">{{item}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{viewRecord.note}}" class="card view-block">
+      <view class="view-block__title">备注</view>
+      <view class="view-note">{{viewRecord.note}}</view>
+    </view>
+  </block>
+</view>

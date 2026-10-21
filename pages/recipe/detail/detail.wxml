@@ -1,0 +1,147 @@
+<!-- pages/recipe/detail/detail.wxml —— 食谱详情 -->
+<nav-bar title="食谱详情" showBack="{{true}}" />
+
+<!-- 加载态 -->
+<view wx:if="{{loading}}" class="state">
+  <view class="state__emoji">🍲</view>
+  <view class="state__text">正在加载食谱…</view>
+</view>
+
+<!-- 错误 / 不存在占位 -->
+<view wx:elif="{{error}}" class="state">
+  <view class="state__emoji">😢</view>
+  <view class="state__text">没找到这道食谱</view>
+  <view class="state__hint">食谱可能已删除或暂不可访问</view>
+  <view class="btn-ghost state__btn" bindtap="onRetry">重新加载</view>
+</view>
+
+<!-- 正文 -->
+<view wx:else class="detail">
+  <!-- 顶部大图 -->
+  <view class="hero">
+    <image
+      wx:if="{{recipe.imageUrl && !_imgError}}"
+      class="hero__img"
+      src="{{recipe.imageUrl}}"
+      mode="aspectFill"
+      binderror="onImgError"
+    />
+    <view wx:else class="hero__img hero__img--fallback">
+      <text class="hero__fallback-emoji">🍲</text>
+    </view>
+    <view class="hero__mask">
+      <view class="hero__title">{{recipe.title}}</view>
+      <view class="hero__meta">
+        <text class="hero__month">{{monthText}}</text>
+        <text wx:if="{{typeLabel}}" class="hero__type">{{typeLabel}}</text>
+      </view>
+    </view>
+    <!-- 编辑入口（自建且本人可见） -->
+    <view wx:if="{{canEdit}}" class="hero__edit" bindtap="onEdit">
+      <text class="hero__edit-icon">✏️</text>
+      <text>编辑</text>
+    </view>
+  </view>
+
+  <view class="detail__body">
+    <!-- 过敏总览提示条 -->
+    <view wx:if="{{hasAllergenHit}}" class="alert">
+      <text class="alert__icon">⚠️</text>
+      <view class="alert__text">
+        本食谱含【{{allergenHitsText}}】，是{{babyName}}的疑似过敏原，请谨慎尝试
+      </view>
+    </view>
+
+    <!-- 标签区 -->
+    <view wx:if="{{viewTags.length > 0 || typeLabel}}" class="tags">
+      <text wx:if="{{typeLabel}}" class="tag tag-green tags__item">{{typeLabel}}</text>
+      <text
+        wx:for="{{viewTags}}"
+        wx:key="name"
+        class="{{item.tone}} tags__item"
+      >{{item.name}}</text>
+    </view>
+
+    <!-- 食材清单 -->
+    <view wx:if="{{viewIngredients.length > 0}}" class="card section">
+      <view class="section__title">食材</view>
+      <view class="ing-list">
+        <view
+          wx:for="{{viewIngredients}}"
+          wx:key="index"
+          class="ing {{item.isHit ? 'ing--hit' : ''}}"
+        >
+          <view class="ing__left">
+            <text wx:if="{{item.isHit}}" class="ing__warn">⚠️</text>
+            <text class="ing__name">{{item.name}}</text>
+            <text wx:if="{{item.isAllergen}}" class="tag-warning ing__badge">过敏原</text>
+          </view>
+          <text class="ing__amount">{{item.amount}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 制作步骤 -->
+    <view wx:if="{{recipe.steps.length > 0}}" class="card section">
+      <view class="section__title">做法</view>
+      <view class="steps">
+        <view wx:for="{{recipe.steps}}" wx:key="index" class="step">
+          <view class="step__no">{{index + 1}}</view>
+          <view class="step__text">{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 营养信息 -->
+    <view wx:if="{{hasNutrition}}" class="card section">
+      <view class="section__title">营养（每份约）</view>
+      <view wx:if="{{nutritionItems.length > 0}}" class="nutri-grid">
+        <view
+          wx:for="{{nutritionItems}}"
+          wx:key="label"
+          class="nutri {{item.tone}}"
+        >
+          <text class="nutri__emoji">{{item.emoji}}</text>
+          <text class="nutri__label">{{item.label}}</text>
+          <text class="nutri__value">{{item.value}}</text>
+        </view>
+      </view>
+      <view wx:if="{{vitaminText}}" class="nutri-vitamin">
+        <text class="nutri-vitamin__label">维生素</text>
+        <text class="nutri-vitamin__value">{{vitaminText}}</text>
+      </view>
+    </view>
+
+    <!-- 参考来源 -->
+    <view class="card section source" bindtap="toggleSource">
+      <view class="section__title">参考来源</view>
+      <block wx:if="{{hasSource}}">
+        <view class="source__main">
+          <text class="source__icon">📖</text>
+          <text class="source__name">{{recipe.source.name || '未命名来源'}}</text>
+        </view>
+        <view class="source__sub">
+          <text wx:if="{{recipe.source.chapter}}">{{recipe.source.chapter}}</text>
+          <text wx:if="{{recipe.source.page}}" class="source__page">第 {{recipe.source.page}} 页</text>
+        </view>
+        <view wx:if="{{sourceExpanded}}" class="source__note">
+          营养与食谱信息参考自权威资料，页码为参考位置，请以正式出版物为准
+        </view>
+        <view class="source__toggle">{{sourceExpanded ? '收起 ∧' : '展开说明 ∨'}}</view>
+      </block>
+      <view wx:else class="source__empty">暂无来源信息</view>
+    </view>
+
+    <!-- 底部占位，避免被固定操作栏遮挡 -->
+    <view class="detail__spacer"></view>
+  </view>
+
+  <!-- 底部固定操作栏 -->
+  <view class="actionbar safe-bottom">
+    <view class="actionbar__fav" bindtap="toggleFavorite">
+      <text class="actionbar__fav-icon {{isFavorite ? 'actionbar__fav-icon--on' : ''}}">{{isFavorite ? '★' : '☆'}}</text>
+      <text class="actionbar__fav-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
+    </view>
+    <view class="btn-primary actionbar__add" bindtap="onAddRecord">加入今日记录</view>
+  </view>
+</view>

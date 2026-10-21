@@ -1,0 +1,12 @@
+{
+  "name": "family",
+  "version": "1.0.0",
+  "description": "家庭共享云函数：邀请与成员管理（createInvite/joinByCode/getInviteInfo/listMembers/removeMember/updateMemberRole），权限校验在云端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

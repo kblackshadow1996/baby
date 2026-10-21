@@ -1,0 +1,13 @@
+{
+  "name": "exportReport",
+  "version": "1.0.0",
+  "description": "数据导出-健康报告生成云函数：汇总成长/辅食/过敏数据，产出 PDF(pdfkit) 或网页版 HTML 存云存储。部署时请选【云端安装依赖】以安装 pdfkit；中文 PDF 需放置 fonts/app.ttf，否则用网页版导出。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "pdfkit": "^0.13.0"
+  }
+}

@@ -1,0 +1,174 @@
+<nav-bar title="小饭团成长记" />
+<view class="page safe-bottom">
+  <!-- 加载态 -->
+  <view wx:if="{{!ready}}" class="index__loading">
+    <text class="index__loading-emoji">🍚</text>
+    <text class="index__loading-text text-sub">正在准备…</text>
+  </view>
+  <!-- 有当前宝贝 -->
+  <block wx:elif="{{hasBaby}}">
+    <!-- 1. 顶部宝贝信息区 -->
+    <view class="card index__baby" bindtap="onManageBaby">
+      <view class="index__baby-avatar">
+        <image
+          wx:if="{{avatarUrl}}"
+          class="index__baby-avatar-img"
+          src="{{avatarUrl}}"
+          mode="aspectFill"
+        />
+        <text wx:else class="index__baby-emoji">🍚</text>
+      </view>
+      <view class="index__baby-info col">
+        <view class="index__baby-line row">
+          <text class="index__baby-name">{{babyName}}</text>
+          <text
+            wx:if="{{genderIcon}}"
+            class="index__baby-gender index__baby-gender--{{genderIcon === '♂' ? 'boy' : 'girl'}}"
+          >{{genderIcon}}</text>
+        </view>
+        <view class="index__baby-line row">
+          <text class="index__baby-age text-sub">{{ageText}}</text>
+          <text class="index__baby-month text-sub">（{{month}}个月）</text>
+        </view>
+      </view>
+      <text class="index__baby-switch">切换宝贝 ›</text>
+    </view>
+
+    <!-- 过敏提醒卡（淡红），仅当有疑似过敏原时展示 -->
+    <view wx:if="{{allergyTip}}" class="card index__allergy" bindtap="onTapAllergy">
+      <text class="index__allergy-emoji">⚠️</text>
+      <view class="index__allergy-info col">
+        <text class="index__allergy-title">{{allergyTip.babyName}}有 {{allergyTip.count}} 种疑似过敏原</text>
+        <text class="index__allergy-names">{{allergyTip.names}}</text>
+      </view>
+      <text class="index__allergy-arrow">查看 ›</text>
+    </view>
+
+    <!-- 2. 月龄辅食阶段卡 -->
+    <view class="card index__stage" bindtap="onTapStage">
+      <view class="index__stage-icon">
+        <text class="index__stage-emoji">{{stageEmoji}}</text>
+      </view>
+      <view class="index__stage-info col">
+        <view class="index__stage-title row">
+          <text class="index__stage-name">{{stageName}}</text>
+          <text class="tag tag-green index__stage-range">{{stageRange}}</text>
+        </view>
+        <text class="index__stage-tip">{{stageTip}}</text>
+      </view>
+      <text class="index__stage-arrow">›</text>
+    </view>
+
+    <!-- 3. 今日餐次摘要卡（真实数据） -->
+    <view class="card index__today">
+      <view class="index__today-head row-between">
+        <text class="index__today-title">今日辅食</text>
+        <text class="index__today-date text-sub">{{todayDate}}</text>
+      </view>
+      <!-- 纯奶期温馨提示 -->
+      <view wx:if="{{isMilkStage}}" class="index__milk-tip">
+        <text class="index__milk-emoji">🍼</text>
+        <text class="index__milk-text">宝宝还在纯奶期，以母乳/配方奶为主哦</text>
+      </view>
+      <!-- 加载中骨架 -->
+      <view wx:elif="{{mealsLoading}}" class="index__meals">
+        <view wx:for="{{[1,2,3]}}" wx:key="*this" class="index__meal-item">
+          <view class="index__meal-left row">
+            <view class="index__skeleton index__skeleton--circle"></view>
+            <view class="col">
+              <view class="index__skeleton index__skeleton--line"></view>
+              <view class="index__skeleton index__skeleton--line index__skeleton--short"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 餐次摘要：真实记录 + 常显餐别兜底 -->
+      <view wx:else class="index__meals">
+        <view
+          wx:for="{{mealSummarySlots}}"
+          wx:key="mealType"
+          class="index__meal-item"
+          data-meal-type="{{item.mealType}}"
+          bindtap="onTapMeal"
+        >
+          <view class="index__meal-left row">
+            <text class="index__meal-icon">{{item.icon}}</text>
+            <view class="col">
+              <text class="index__meal-name">{{item.name}}</text>
+              <text
+                wx:if="{{item.status === 'recorded'}}"
+                class="index__meal-status index__meal-status--done"
+              >已记录 · {{item.foodCount}} 种{{item.foodsText ? '（' + item.foodsText + '）' : ''}}</text>
+              <text wx:else class="index__meal-status text-sub">未记录</text>
+            </view>
+          </view>
+          <text wx:if="{{item.status === 'recorded'}}" class="index__meal-done">✓</text>
+          <text wx:else class="index__meal-action">去记录 +</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 推荐食谱区（仅当有结果时展示） -->
+    <view wx:if="{{recipesLoading || recommendRecipes.length}}" class="index__recommend">
+      <view class="index__recommend-head row-between">
+        <text class="index__recommend-title">为 {{babyName}} 推荐</text>
+        <text class="index__recommend-more" bindtap="onTapStage">更多 ›</text>
+      </view>
+      <!-- 加载中骨架 -->
+      <scroll-view wx:if="{{recipesLoading}}" class="index__recommend-scroll" scroll-x>
+        <view class="index__recommend-row">
+          <view wx:for="{{[1,2,3]}}" wx:key="*this" class="index__recipe-card">
+            <view class="index__skeleton index__recipe-cover"></view>
+            <view class="index__skeleton index__skeleton--line"></view>
+          </view>
+        </view>
+      </scroll-view>
+      <scroll-view wx:else class="index__recommend-scroll" scroll-x>
+        <view class="index__recommend-row">
+          <view
+            wx:for="{{recommendRecipes}}"
+            wx:key="_id"
+            class="index__recipe-card"
+            data-id="{{item._id}}"
+            bindtap="onTapRecipe"
+          >
+            <view class="index__recipe-cover">
+              <image
+                wx:if="{{item.imageUrl}}"
+                class="index__recipe-cover-img"
+                src="{{item.imageUrl}}"
+                mode="aspectFill"
+              />
+              <text wx:else class="index__recipe-cover-emoji">🍲</text>
+            </view>
+            <text class="index__recipe-name">{{item.name}}</text>
+            <text wx:if="{{item.monthText}}" class="index__recipe-month text-sub">{{item.monthText}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 4. 快捷功能入口网格 -->
+    <view class="index__grid">
+      <view
+        wx:for="{{quickEntries}}"
+        wx:key="key"
+        class="index__grid-item"
+        data-url="{{item.url}}"
+        bindtap="onTapEntry"
+      >
+        <view class="index__grid-icon index__grid-icon--{{item.tone}}">
+          <text class="index__grid-emoji">{{item.icon}}</text>
+        </view>
+        <text class="index__grid-label">{{item.label}}</text>
+      </view>
+    </view>
+  </block>
+  <!-- 5. 无宝贝引导 -->
+  <block wx:else>
+    <empty-state text="先添加一个宝贝，开始记录成长吧" icon="🍼" />
+    <view class="index__empty-action">
+      <button class="btn-primary" bindtap="onAddBaby">添加宝贝</button>
+    </view>
+  </block>
+</view>

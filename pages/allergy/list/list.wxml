@@ -1,0 +1,91 @@
+<nav-bar title="过敏观察" />
+
+<!-- 无宝贝引导 -->
+<view wx:if="{{!hasBaby}}" class="page">
+  <empty-state icon="🍼" text="还没有宝贝信息，先去添加一个吧" />
+  <view class="add-baby-btn-wrap">
+    <button class="btn-primary" bindtap="onGoAddBaby">去添加宝贝</button>
+  </view>
+</view>
+
+<view wx:else class="page">
+  <!-- 宝贝名 -->
+  <view class="baby-head row">
+    <text class="baby-head__name">{{babyName}}</text>
+    <text class="baby-head__sub text-sub">的过敏观察</text>
+  </view>
+
+  <!-- 过敏食物汇总卡 -->
+  <view class="card summary">
+    <view class="summary__header row-between">
+      <text class="summary__title">过敏原汇总</text>
+      <text wx:if="{{alertCount > 0}}" class="summary__count text-sub">共 {{alertCount}} 种疑似过敏原</text>
+    </view>
+
+    <view wx:if="{{alertCount === 0}}" class="summary__empty">暂无过敏原记录，宝宝很棒 🎉</view>
+
+    <view wx:else class="summary__tags">
+      <view
+        wx:for="{{alerts}}"
+        wx:key="_id"
+        class="alert-item"
+      >
+        <view
+          class="alert-tag {{item.statusCls}}"
+          data-index="{{index}}"
+          bindtap="onToggleAlert"
+        >
+          <text class="alert-tag__name">{{item.foodName}}</text>
+          <text class="alert-tag__status">{{item.statusLabel}}</text>
+        </view>
+        <!-- 展开详情 -->
+        <view wx:if="{{item.expanded}}" class="alert-detail">
+          <view wx:if="{{item.symptomsSummary.length > 0}}" class="alert-detail__row">
+            <text class="alert-detail__label">症状：</text>
+            <text class="alert-detail__value">{{item.symptomsSummary}}</text>
+          </view>
+          <view class="alert-detail__row">
+            <text class="alert-detail__label">首次：</text>
+            <text class="alert-detail__value">{{item.firstText || '—'}}</text>
+          </view>
+          <view class="alert-detail__row">
+            <text class="alert-detail__label">最近：</text>
+            <text class="alert-detail__value">{{item.lastText || '—'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 过敏记录时间线 -->
+  <view class="timeline">
+    <view class="timeline__title">过敏记录</view>
+    <view wx:if="{{records.length === 0}}" class="timeline__empty">
+      <empty-state icon="🌿" text="还没有过敏记录" />
+    </view>
+    <view
+      wx:for="{{records}}"
+      wx:key="_id"
+      class="card rec-card"
+      data-id="{{item._id}}"
+      bindtap="onTapRecord"
+    >
+      <view class="rec-card__head row-between">
+        <text class="rec-card__date">{{item.dateText}}</text>
+        <text wx:if="{{item.mealRecordId}}" class="rec-card__from text-sub">来自用餐</text>
+      </view>
+      <view wx:if="{{item.symptoms.length > 0}}" class="rec-card__tags">
+        <view wx:for="{{item.symptoms}}" wx:for-item="s" wx:key="*this" class="tag tag-warning rec-tag">{{s}}</view>
+      </view>
+      <view wx:if="{{item.suspectedFoods.length > 0}}" class="rec-card__tags">
+        <view wx:for="{{item.suspectedFoods}}" wx:for-item="f" wx:key="*this" class="tag tag-yellow rec-tag">{{f}}</view>
+      </view>
+      <view wx:if="{{item.note}}" class="rec-card__note text-sub">{{item.note}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- 浮动 + 按钮 -->
+<view wx:if="{{hasBaby}}" class="fab" bindtap="onAddRecord">
+  <text class="fab__icon">+</text>
+</view>

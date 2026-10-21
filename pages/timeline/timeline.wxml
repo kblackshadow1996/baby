@@ -1,0 +1,82 @@
+<nav-bar title="辅食时间线" />
+
+<!-- 无当前宝贝：引导去管理宝贝 -->
+<view wx:if="{{!hasBaby}}" class="page">
+  <empty-state icon="🍼" text="还没有选择宝贝，先在首页添加或切换宝贝吧" />
+</view>
+
+<view wx:else class="page">
+  <!-- 顶部统计卡 -->
+  <view class="stats card">
+    <view class="stats__item">
+      <text class="stats__num">{{total}}</text>
+      <text class="stats__label">已尝试食物</text>
+    </view>
+    <view class="stats__divider"></view>
+    <view class="stats__item">
+      <text class="stats__num stats__num--warn">{{allergyCount}}</text>
+      <text class="stats__label">过敏反应</text>
+    </view>
+  </view>
+
+  <!-- 类别筛选条（横向滚动） -->
+  <scroll-view class="filters" scroll-x enable-flex>
+    <view
+      wx:for="{{filters}}"
+      wx:key="key"
+      class="filters__chip {{activeCategory === item.key ? 'filters__chip--active' : ''}}"
+      bindtap="onSelectCategory"
+      data-key="{{item.key}}"
+    >
+      <text class="filters__icon">{{item.icon}}</text>
+      <text class="filters__label">{{item.label}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 空态：无任何时间线数据 -->
+  <view wx:if="{{!hasTimeline}}" class="empty-wrap">
+    <empty-state icon="🥣" text="还没有辅食记录，去「添加记录」记录第一口辅食吧" />
+    <view class="empty-wrap__btn btn-primary" bindtap="goAddRecord">去添加记录</view>
+  </view>
+
+  <!-- 时间轴 -->
+  <view wx:else class="timeline">
+    <view wx:for="{{groups}}" wx:for-item="group" wx:key="monthKey" class="tl-group">
+      <view class="tl-group__title">
+        <text class="tl-group__dot"></text>
+        <text class="tl-group__text">{{group.monthKey}}</text>
+      </view>
+
+      <view
+        wx:for="{{group.nodes}}"
+        wx:for-item="node"
+        wx:key="_id"
+        class="tl-node"
+      >
+        <!-- 左侧时间轴：竖线 + 圆点（按类别配色） -->
+        <view class="tl-node__rail">
+          <view class="tl-node__line"></view>
+          <view class="tl-node__point {{node.tone}}">
+            <text class="tl-node__point-icon">{{node.icon}}</text>
+          </view>
+        </view>
+
+        <!-- 右侧节点卡片（按类别配色） -->
+        <view class="tl-node__card {{node.tone}} {{node.isAllergy ? 'tl-node__card--allergy' : ''}}">
+          <view class="tl-node__head">
+            <text class="tl-node__name">{{node.foodName}}</text>
+            <view wx:if="{{node.isAllergy}}" class="tag tag-warning tl-node__flag">⚠️ 过敏</view>
+            <text wx:else class="tl-node__ok">✅</text>
+          </view>
+          <view class="tl-node__meta">
+            <text class="tl-node__date">{{node.dateText}}</text>
+            <view class="tl-node__cat">
+              <text class="tl-node__cat-icon">{{node.icon}}</text>
+              <text class="tl-node__cat-label">{{node.categoryLabel}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

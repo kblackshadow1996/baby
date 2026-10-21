@@ -1,0 +1,215 @@
+/* pages/timeline/timeline.wxss —— 辅食时间线（清新可爱风） */
+.page {
+  padding: 24rpx;
+}
+
+/* ===== 顶部统计卡 ===== */
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 24rpx;
+}
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+.stats__num {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+.stats__num--warn {
+  color: var(--color-warning);
+}
+.stats__label {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.stats__divider {
+  width: 2rpx;
+  height: 56rpx;
+  background-color: #F0E6E6;
+}
+
+/* ===== 类别筛选条（横向滚动） ===== */
+.filters {
+  white-space: nowrap;
+  margin-bottom: 24rpx;
+}
+.filters__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  margin-right: 16rpx;
+  border-radius: var(--radius-btn);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-card);
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+.filters__chip--active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+.filters__icon {
+  margin-right: 8rpx;
+  font-size: 28rpx;
+}
+.filters__label {
+  line-height: 1.4;
+}
+
+/* ===== 空态 ===== */
+.empty-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx 0;
+}
+.empty-wrap__btn {
+  margin-top: 16rpx;
+  width: 60%;
+}
+
+/* ===== 时间轴 ===== */
+.timeline {
+  padding: 8rpx 0 48rpx;
+}
+.tl-group {
+  margin-bottom: 8rpx;
+}
+.tl-group__title {
+  display: flex;
+  align-items: center;
+  margin: 24rpx 0 16rpx;
+}
+.tl-group__dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  margin-right: 16rpx;
+}
+.tl-group__text {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* 节点：左侧固定宽度轨道列 + 右侧卡片 */
+.tl-node {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+.tl-node__rail {
+  position: relative;
+  width: 72rpx;
+  flex: 0 0 72rpx;
+  display: flex;
+  justify-content: center;
+}
+/* 竖线：绝对定位贯穿整列 */
+.tl-node__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4rpx;
+  margin-left: -2rpx;
+  background-color: #F0E6E6;
+}
+/* 圆点：按类别配色，盖在竖线上 */
+.tl-node__point {
+  position: relative;
+  z-index: 1;
+  margin-top: 16rpx;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx solid var(--color-card);
+}
+.tl-node__point-icon {
+  font-size: 28rpx;
+  line-height: 1;
+}
+
+/* 右侧卡片 */
+.tl-node__card {
+  flex: 1;
+  margin: 0 0 20rpx 8rpx;
+  padding: 24rpx;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.tl-node__card--allergy {
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 107, 0.16);
+}
+.tl-node__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.tl-node__name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.tl-node__flag {
+  flex: 0 0 auto;
+}
+.tl-node__ok {
+  font-size: 28rpx;
+}
+.tl-node__meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+.tl-node__date {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.tl-node__cat {
+  display: inline-flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.tl-node__cat-icon {
+  margin-right: 6rpx;
+}
+
+/* ===== 类别配色（圆点 + 卡片底色） ===== */
+.cat-grain {
+  background-color: #FFF8E1;
+}
+.cat-veggie {
+  background-color: #E8F5E9;
+}
+.cat-fruit {
+  background-color: #FFE4E1;
+}
+.cat-meat {
+  background-color: #FFF0E8;
+}
+.cat-egg-dairy {
+  background-color: #E0F0FF;
+}
+.cat-seafood {
+  background-color: #E0F7F7;
+}
+.cat-other {
+  background-color: #F0F0F0;
+}

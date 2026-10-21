@@ -1,0 +1,214 @@
+<!-- pages/recipe/create/create.wxml —— 创建 / 编辑自建食谱 -->
+<nav-bar title="{{navTitle}}" showBack="{{true}}" />
+
+<view wx:if="{{loading}}" class="state">
+  <view class="state__emoji">🍲</view>
+  <view class="state__text">正在加载食谱…</view>
+</view>
+
+<view wx:else class="page">
+  <!-- 食谱图片 -->
+  <view class="card section">
+    <view class="section__title">食谱图片</view>
+    <view class="uploader" bindtap="onChooseImage">
+      <image wx:if="{{imageUrl}}" class="uploader__img" src="{{imageUrl}}" mode="aspectFill" />
+      <view wx:else class="uploader__empty">
+        <text class="uploader__plus">＋</text>
+        <text class="uploader__hint">点击上传成品图</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 基础信息 -->
+  <view class="card section">
+    <view class="field">
+      <text class="field__label">食谱名称</text>
+      <input
+        class="field__input"
+        placeholder="如：胡萝卜鸡蛋羹"
+        value="{{title}}"
+        bindinput="onTitleInput"
+        maxlength="30"
+      />
+    </view>
+
+    <view class="field">
+      <text class="field__label">适用月龄</text>
+      <view class="month-range">
+        <input
+          class="field__input month-range__input"
+          type="number"
+          placeholder="最小"
+          value="{{monthAgeMin}}"
+          bindinput="onMonthMinInput"
+        />
+        <text class="month-range__sep">~</text>
+        <input
+          class="field__input month-range__input"
+          type="number"
+          placeholder="最大"
+          value="{{monthAgeMax}}"
+          bindinput="onMonthMaxInput"
+        />
+        <text class="month-range__unit">月（0-36）</text>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="field__label">分类</text>
+      <view class="chips">
+        <view
+          wx:for="{{typeOptions}}"
+          wx:key="value"
+          class="chip {{type === item.value ? 'chip--on' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onTypeTap"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="field__label">归属宝贝</text>
+      <picker
+        mode="selector"
+        range="{{babyOptions}}"
+        range-key="name"
+        value="{{babyPickerIndex}}"
+        bindchange="onBabyChange"
+      >
+        <view class="field__picker">
+          <text>{{babyOptions[babyPickerIndex].name}}</text>
+          <text class="field__picker-arrow">∨</text>
+        </view>
+      </picker>
+      <text class="field__tip">归属后，该宝贝的家庭成员也可见这道食谱</text>
+    </view>
+  </view>
+
+  <!-- 食材 -->
+  <view class="card section">
+    <view class="section__title row-between">
+      <text>食材</text>
+      <text class="section__add" bindtap="onAddIngredient">＋ 添加食材</text>
+    </view>
+    <view
+      wx:for="{{ingredients}}"
+      wx:key="index"
+      class="ing-row"
+    >
+      <input
+        class="ing-row__name"
+        placeholder="食材名"
+        value="{{item.name}}"
+        data-index="{{index}}"
+        bindinput="onIngredientNameInput"
+      />
+      <input
+        class="ing-row__amount"
+        placeholder="用量"
+        value="{{item.amount}}"
+        data-index="{{index}}"
+        bindinput="onIngredientAmountInput"
+      />
+      <view class="ing-row__allergen">
+        <text class="ing-row__allergen-label">过敏原</text>
+        <switch
+          checked="{{item.isAllergen}}"
+          color="#FF8FA3"
+          data-index="{{index}}"
+          bindchange="onIngredientAllergenChange"
+        />
+      </view>
+      <text class="ing-row__del" data-index="{{index}}" bindtap="onRemoveIngredient">✕</text>
+    </view>
+  </view>
+
+  <!-- 制作步骤 -->
+  <view class="card section">
+    <view class="section__title row-between">
+      <text>制作步骤</text>
+      <text class="section__add" bindtap="onAddStep">＋ 添加步骤</text>
+    </view>
+    <view
+      wx:for="{{steps}}"
+      wx:key="index"
+      class="step-row"
+    >
+      <view class="step-row__no">{{index + 1}}</view>
+      <textarea
+        class="step-row__text"
+        placeholder="描述这一步怎么做"
+        value="{{item}}"
+        data-index="{{index}}"
+        bindinput="onStepInput"
+        auto-height
+      />
+      <text class="step-row__del" data-index="{{index}}" bindtap="onRemoveStep">✕</text>
+    </view>
+  </view>
+
+  <!-- 营养信息（选填） -->
+  <view class="card section">
+    <view class="section__title">营养信息<text class="section__optional">（选填）</text></view>
+    <view class="field field--inline">
+      <text class="field__label">热量</text>
+      <input class="field__input" placeholder="如 90 kcal" value="{{nutrition.calories}}" data-key="calories" bindinput="onNutritionInput" />
+    </view>
+    <view class="field field--inline">
+      <text class="field__label">蛋白质</text>
+      <input class="field__input" placeholder="如 6 g" value="{{nutrition.protein}}" data-key="protein" bindinput="onNutritionInput" />
+    </view>
+    <view class="field field--inline">
+      <text class="field__label">铁</text>
+      <input class="field__input" placeholder="如 2 mg" value="{{nutrition.iron}}" data-key="iron" bindinput="onNutritionInput" />
+    </view>
+    <view class="field field--inline">
+      <text class="field__label">钙</text>
+      <input class="field__input" placeholder="如 40 mg" value="{{nutrition.calcium}}" data-key="calcium" bindinput="onNutritionInput" />
+    </view>
+    <view class="field field--inline">
+      <text class="field__label">维生素</text>
+      <input class="field__input" placeholder="如 维生素A/C" value="{{nutrition.vitamin}}" data-key="vitamin" bindinput="onNutritionInput" />
+    </view>
+  </view>
+
+  <!-- 标签（选填） -->
+  <view class="card section">
+    <view class="section__title">标签<text class="section__optional">（选填）</text></view>
+    <view class="chips">
+      <view
+        wx:for="{{tagOptions}}"
+        wx:key="*this"
+        class="chip {{tags.indexOf(item) !== -1 ? 'chip--on' : ''}}"
+        data-tag="{{item}}"
+        bindtap="onTagTap"
+      >{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 来源 / 备注（选填） -->
+  <view class="card section">
+    <view class="section__title">来源 / 备注<text class="section__optional">（选填）</text></view>
+    <input
+      class="field__input"
+      placeholder="如：家庭食谱 / 奶奶的做法"
+      value="{{sourceName}}"
+      bindinput="onSourceInput"
+      maxlength="40"
+    />
+  </view>
+
+  <!-- 删除（编辑态） -->
+  <view wx:if="{{mode === 'edit'}}" class="delete-row">
+    <view class="delete-btn" bindtap="onDelete">删除食谱</view>
+  </view>
+
+  <view class="page__spacer"></view>
+
+  <!-- 底部保存栏 -->
+  <view class="savebar safe-bottom">
+    <view class="btn-primary savebar__btn {{saving ? 'savebar__btn--disabled' : ''}}" bindtap="onSave">
+      {{mode === 'edit' ? '保存修改' : '创建食谱'}}
+    </view>
+  </view>
+</view>

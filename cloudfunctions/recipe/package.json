@@ -1,0 +1,12 @@
+{
+  "name": "recipe",
+  "version": "1.0.0",
+  "description": "食谱库云函数：list/get 统一入口（create/update/delete 留 Task 12），权限校验在云端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,265 @@
+/* pages/recipe/list/list.wxss —— 食谱库（清新可爱风） */
+.page {
+  padding: 16rpx 24rpx 40rpx;
+}
+
+/* ===== tab 切换 ===== */
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 12rpx 0 20rpx;
+}
+.tabs__item {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 0;
+  border-radius: var(--radius-btn);
+  font-size: 28rpx;
+  color: var(--color-text-sub);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-card);
+}
+.tabs__item--active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ===== 月龄段选择器（横向） ===== */
+.stage-bar {
+  width: 100%;
+  white-space: nowrap;
+}
+.stage-bar__inner {
+  display: inline-flex;
+  flex-direction: row;
+  padding: 8rpx 0 20rpx;
+  gap: 16rpx;
+}
+.stage-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 132rpx;
+  padding: 14rpx 24rpx;
+  border-radius: var(--radius-card);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-card);
+}
+.stage-chip--active {
+  background-color: var(--color-primary);
+}
+.stage-chip__name {
+  font-size: 26rpx;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+.stage-chip__range {
+  font-size: 20rpx;
+  color: var(--color-text-sub);
+  line-height: 1.3;
+}
+.stage-chip--active .stage-chip__name,
+.stage-chip--active .stage-chip__range {
+  color: #ffffff;
+}
+
+/* ===== 标签筛选条（横向） ===== */
+.tag-bar {
+  width: 100%;
+  white-space: nowrap;
+}
+.tag-bar__inner {
+  display: inline-flex;
+  flex-direction: row;
+  padding: 4rpx 0 20rpx;
+  gap: 14rpx;
+}
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 10rpx 28rpx;
+  border-radius: var(--radius-btn);
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-card);
+}
+.tag-pill--active {
+  background-color: var(--color-pink-soft);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ===== 食谱卡片列表 ===== */
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.recipe-card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  border: 2rpx solid transparent;
+}
+.recipe-card--warn {
+  border-color: var(--color-warning);
+  background-color: var(--color-warning-bg);
+}
+.recipe-card__alert {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  z-index: 2;
+  width: 44rpx;
+  height: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-size: 26rpx;
+}
+.recipe-card__media {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  flex-shrink: 0;
+}
+.recipe-card__img {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: var(--radius-card);
+  background-color: var(--color-pink-soft);
+}
+.recipe-card__emoji {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: var(--radius-card);
+  background-color: var(--color-pink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80rpx;
+}
+.recipe-card__type {
+  position: absolute;
+  left: 12rpx;
+  bottom: 12rpx;
+  padding: 4rpx 16rpx;
+  border-radius: var(--radius-btn);
+  background-color: rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  font-size: 20rpx;
+  line-height: 1.4;
+}
+.recipe-card__body {
+  flex: 1;
+  min-width: 0;
+  padding: 20rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.recipe-card__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.recipe-card__month {
+  font-size: 22rpx;
+  color: var(--color-primary);
+}
+.recipe-card__ings {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.recipe-card__tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 4rpx;
+}
+.recipe-card__tag {
+  margin: 0;
+}
+
+/* ===== 列表底部状态 ===== */
+.list-foot {
+  text-align: center;
+  padding: 24rpx 0;
+  color: var(--color-text-sub);
+  font-size: 24rpx;
+}
+
+/* ===== 我的食谱空态 ===== */
+.empty-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24rpx;
+  padding-top: 20rpx;
+}
+.empty-wrap__btn {
+  width: 60%;
+}
+
+/* ===== 骨架屏 ===== */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.skeleton__card {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 20rpx;
+  gap: 24rpx;
+}
+.skeleton__img {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: var(--radius-card);
+  background-color: var(--color-pink-soft);
+}
+.skeleton__lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16rpx;
+}
+.skeleton__line {
+  height: 24rpx;
+  border-radius: 12rpx;
+  background-color: var(--color-pink-soft);
+}
+.skeleton__line--title {
+  width: 70%;
+  height: 32rpx;
+}
+.skeleton__line--short {
+  width: 40%;
+}

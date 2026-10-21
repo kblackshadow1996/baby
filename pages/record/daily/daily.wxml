@@ -1,0 +1,84 @@
+<nav-bar title="每日记录" />
+
+<view wx:if="{{!hasBaby}}" class="page">
+  <empty-state icon="🍼" text="还没有宝贝信息，先去添加一个吧" />
+  <view class="add-baby-btn-wrap">
+    <button class="btn-primary" bindtap="onGoAddBaby">去添加宝贝</button>
+  </view>
+</view>
+
+<view wx:else class="page">
+  <!-- 宝贝信息 -->
+  <view class="baby-head row">
+    <text class="baby-head__name">{{babyName}}</text>
+    <text wx:if="{{babyAgeText}}" class="baby-head__age">{{babyAgeText}}</text>
+  </view>
+
+  <!-- 周日历 -->
+  <view class="card week-cal">
+    <view class="week-cal__header row-between">
+      <view class="week-cal__arrow" bindtap="onPrevWeek">‹</view>
+      <text class="week-cal__month">{{weekMonthText}}</text>
+      <view class="week-cal__arrow" bindtap="onNextWeek">›</view>
+    </view>
+    <view class="week-cal__days">
+      <view
+        wx:for="{{weekDays}}"
+        wx:key="dateStr"
+        class="week-day {{item.isSelected ? 'week-day--selected' : ''}}"
+        data-date="{{item.dateStr}}"
+        bindtap="onSelectDay"
+      >
+        <text class="week-day__label">{{item.weekLabel}}</text>
+        <view class="week-day__num {{item.isToday ? 'week-day__num--today' : ''}}">
+          <text>{{item.day}}</text>
+        </view>
+        <view class="week-day__dot {{item.hasRecord ? 'week-day__dot--on' : ''}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 当天标题 -->
+  <view class="day-title row-between">
+    <text class="day-title__text">{{selectedDateText}}</text>
+    <text class="day-title__count">{{records.length}} 条记录</text>
+  </view>
+
+  <!-- 记录列表 -->
+  <view wx:if="{{records.length > 0}}" class="record-list">
+    <view
+      wx:for="{{records}}"
+      wx:key="_id"
+      class="card record-card"
+      data-id="{{item._id}}"
+      bindtap="onEditRecord"
+    >
+      <view class="record-card__head row-between">
+        <view class="record-card__title row">
+          <text class="record-card__icon">{{item.mealIcon}}</text>
+          <text class="record-card__meal">{{item.mealTypeLabel}}</text>
+          <view wx:if="{{item.hasAllergyFlag}}" class="record-card__allergy tag-warning">⚠️ 过敏</view>
+        </view>
+        <text wx:if="{{item.mealTime}}" class="record-card__time">{{item.mealTime}}</text>
+      </view>
+
+      <view class="record-card__foods">
+        <view wx:for="{{item.foods}}" wx:for-item="food" wx:key="name" class="food-row row-between">
+          <text class="food-row__name">{{food.name}}</text>
+          <text wx:if="{{food.amountText}}" class="food-row__amount">{{food.amountText}}</text>
+        </view>
+      </view>
+
+      <text wx:if="{{item.note}}" class="record-card__note">{{item.note}}</text>
+    </view>
+  </view>
+
+  <view wx:else class="record-empty">
+    <empty-state icon="🍽" text="这天还没有记录哦，点下方 + 添加" />
+  </view>
+</view>
+
+<!-- 浮动新增按钮 -->
+<view wx:if="{{hasBaby}}" class="fab safe-bottom" bindtap="onAddRecord">
+  <text class="fab__plus">+</text>
+</view>

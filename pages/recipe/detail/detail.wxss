@@ -1,0 +1,385 @@
+/* pages/recipe/detail/detail.wxss —— 食谱详情 清新可爱风 */
+
+/* ===== 状态占位（加载/错误） ===== */
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 160rpx 48rpx;
+}
+.state__emoji {
+  font-size: 96rpx;
+  margin-bottom: 24rpx;
+}
+.state__text {
+  font-size: 30rpx;
+  color: var(--color-text);
+}
+.state__hint {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.state__btn {
+  margin-top: 40rpx;
+}
+
+/* ===== 正文容器 ===== */
+.detail {
+  min-height: 100vh;
+}
+
+/* ===== 顶部大图 ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 420rpx;
+  border-bottom-left-radius: var(--radius-card);
+  border-bottom-right-radius: var(--radius-card);
+  overflow: hidden;
+}
+.hero__img {
+  width: 100%;
+  height: 420rpx;
+  display: block;
+}
+.hero__img--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-pink-soft);
+}
+.hero__fallback-emoji {
+  font-size: 140rpx;
+}
+.hero__mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 56rpx 32rpx 28rpx;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+}
+.hero__title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.3;
+}
+.hero__meta {
+  margin-top: 14rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.hero__month,
+.hero__type {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 18rpx;
+  border-radius: var(--radius-btn);
+  font-size: 22rpx;
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.28);
+  margin-right: 12rpx;
+}
+.hero__edit {
+  position: absolute;
+  top: 24rpx;
+  right: 24rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8rpx 22rpx;
+  border-radius: var(--radius-btn);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--color-primary);
+  font-size: 24rpx;
+  box-shadow: var(--shadow-card);
+}
+.hero__edit-icon {
+  margin-right: 6rpx;
+}
+
+/* ===== 正文主体 ===== */
+.detail__body {
+  padding: 24rpx;
+}
+.detail__spacer {
+  height: 160rpx;
+}
+
+/* ===== 过敏总览提示条 ===== */
+.alert {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: var(--color-warning-bg);
+  border-radius: var(--radius-card);
+  padding: 24rpx 28rpx;
+  margin-bottom: 24rpx;
+}
+.alert__icon {
+  font-size: 32rpx;
+  margin-right: 14rpx;
+  line-height: 1.5;
+}
+.alert__text {
+  flex: 1;
+  font-size: 26rpx;
+  color: var(--color-warning);
+  line-height: 1.5;
+}
+
+/* ===== 标签区 ===== */
+.tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 24rpx;
+}
+.tags__item {
+  margin-right: 14rpx;
+  margin-bottom: 12rpx;
+}
+
+/* ===== 区块通用 ===== */
+.section {
+  margin-bottom: 24rpx;
+}
+.section__title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 20rpx;
+}
+
+/* ===== 食材清单 ===== */
+.ing-list {
+  display: flex;
+  flex-direction: column;
+}
+.ing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 16rpx;
+  border-radius: 16rpx;
+}
+.ing + .ing {
+  border-top: 2rpx solid #F5F0EE;
+}
+.ing--hit {
+  background-color: var(--color-warning-bg);
+  border-top-color: transparent;
+}
+.ing__left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+.ing__warn {
+  margin-right: 10rpx;
+}
+.ing__name {
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.ing--hit .ing__name {
+  color: var(--color-warning);
+}
+.ing__badge {
+  margin-left: 14rpx;
+  font-size: 20rpx;
+  padding: 2rpx 14rpx;
+}
+.ing__amount {
+  margin-left: 20rpx;
+  text-align: right;
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+  flex-shrink: 0;
+}
+
+/* ===== 制作步骤 ===== */
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+.step {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10rpx 0;
+}
+.step + .step {
+  margin-top: 8rpx;
+}
+.step__no {
+  flex-shrink: 0;
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  margin-top: 2rpx;
+}
+.step__text {
+  flex: 1;
+  font-size: 28rpx;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ===== 营养网格 ===== */
+.nutri-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: -8rpx;
+}
+.nutri {
+  width: calc(50% - 16rpx);
+  margin: 8rpx;
+  padding: 24rpx 20rpx;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nutri__emoji {
+  font-size: 44rpx;
+}
+.nutri__label {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.nutri__value {
+  margin-top: 6rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.4;
+}
+.nutri-orange {
+  background-color: #FFF0E8;
+}
+.nutri-yellow {
+  background-color: var(--color-yellow-soft);
+}
+.nutri-red {
+  background-color: var(--color-warning-bg);
+}
+.nutri-blue {
+  background-color: var(--color-blue-soft);
+}
+.nutri-vitamin {
+  margin-top: 20rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 16rpx;
+  background-color: var(--color-green-soft);
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+.nutri-vitamin__label {
+  color: #66BB6A;
+  font-weight: 600;
+  margin-right: 10rpx;
+}
+.nutri-vitamin__value {
+  color: var(--color-text);
+}
+
+/* ===== 参考来源 ===== */
+.source__main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.source__icon {
+  font-size: 36rpx;
+  margin-right: 14rpx;
+}
+.source__name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.source__sub {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.source__page {
+  margin-left: 16rpx;
+}
+.source__note {
+  margin-top: 18rpx;
+  padding: 18rpx 20rpx;
+  border-radius: 16rpx;
+  background-color: var(--color-bg);
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+  line-height: 1.6;
+}
+.source__toggle {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: var(--color-primary);
+}
+.source__empty {
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+
+/* ===== 底部固定操作栏 ===== */
+.actionbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  background-color: var(--color-card);
+  box-shadow: 0 -6rpx 24rpx rgba(255, 143, 163, 0.14);
+}
+.actionbar__fav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 128rpx;
+  flex-shrink: 0;
+}
+.actionbar__fav-icon {
+  font-size: 44rpx;
+  color: var(--color-text-sub);
+  line-height: 1.1;
+}
+.actionbar__fav-icon--on {
+  color: #FFC107;
+}
+.actionbar__fav-text {
+  margin-top: 2rpx;
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+}
+.actionbar__add {
+  flex: 1;
+  margin-left: 16rpx;
+  height: 88rpx;
+}

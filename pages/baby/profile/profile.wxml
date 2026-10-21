@@ -1,0 +1,74 @@
+<nav-bar title="宝贝档案" show-back="{{true}}" />
+
+<view class="page safe-bottom">
+  <!-- 头像 -->
+  <view class="profile__avatar-wrap">
+    <view class="profile__avatar" bindtap="onChooseAvatar">
+      <image wx:if="{{avatarUrl}}" class="profile__avatar-img" src="{{avatarUrl}}" mode="aspectFill" />
+      <text wx:else class="profile__avatar-emoji">🍚</text>
+      <view class="profile__avatar-badge">
+        <text class="profile__avatar-badge-text">换头像</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 表单卡片 -->
+  <view class="card profile__form">
+    <!-- 名字 -->
+    <view class="profile__field">
+      <text class="profile__label">名字</text>
+      <input
+        class="profile__input"
+        placeholder="给宝贝起个名字吧"
+        placeholder-class="profile__placeholder"
+        value="{{name}}"
+        maxlength="20"
+        bindinput="onNameInput"
+      />
+    </view>
+
+    <!-- 性别 -->
+    <view class="profile__field profile__field--col">
+      <text class="profile__label">性别</text>
+      <radio-group class="profile__gender" bindchange="onGenderChange">
+        <label wx:for="{{genderOptions}}" wx:key="value" class="profile__gender-item">
+          <radio value="{{item.value}}" checked="{{gender === item.value}}" color="#FF8FA3" />
+          <text class="profile__gender-label">{{item.label}}</text>
+        </label>
+      </radio-group>
+    </view>
+
+    <!-- 生日 -->
+    <view class="profile__field">
+      <text class="profile__label">生日</text>
+      <picker mode="date" value="{{birthday}}" end="{{today}}" bindchange="onBirthdayChange">
+        <view class="profile__picker {{birthday ? '' : 'profile__picker--empty'}}">
+          {{birthday || "请选择出生日期"}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 月龄 / 辅食阶段实时展示 -->
+  <view wx:if="{{ageText}}" class="card profile__preview">
+    <view class="profile__preview-row row-between">
+      <text class="profile__preview-key text-sub">当前月龄</text>
+      <text class="profile__preview-val">{{ageText}}</text>
+    </view>
+    <view class="profile__preview-row row-between">
+      <text class="profile__preview-key text-sub">辅食阶段</text>
+      <text class="tag tag-green">{{stageName}}</text>
+    </view>
+    <view wx:if="{{stageTip}}" class="profile__preview-tip text-sub">{{stageTip}}</view>
+  </view>
+
+  <!-- 保存 -->
+  <view class="profile__actions">
+    <button class="btn-primary profile__save" bindtap="onSave" loading="{{saving}}" disabled="{{saving}}">
+      {{mode === 'edit' ? '保存' : '添加宝贝'}}
+    </button>
+    <view wx:if="{{mode === 'edit'}}" class="profile__delete" bindtap="onDelete">
+      <text class="profile__delete-text">删除宝贝</text>
+    </view>
+  </view>
+</view>

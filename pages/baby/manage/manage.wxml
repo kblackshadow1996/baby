@@ -1,0 +1,45 @@
+<nav-bar title="宝贝管理" show-back="{{true}}" />
+
+<view class="page safe-bottom">
+  <!-- 空状态 -->
+  <block wx:if="{{!loading && babies.length === 0}}">
+    <empty-state text="还没有添加宝贝哦" icon="🍼" />
+    <view class="manage__empty-action">
+      <button class="btn-primary" bindtap="onAddBaby">+ 添加宝贝</button>
+    </view>
+  </block>
+
+  <!-- 宝贝列表 -->
+  <block wx:elif="{{babies.length > 0}}">
+    <view class="manage__list">
+      <view
+        wx:for="{{babies}}"
+        wx:key="_id"
+        class="manage__item card {{item.selected ? 'manage__item--active' : ''}}"
+        data-id="{{item._id}}"
+        bindtap="onSelectBaby"
+      >
+        <view class="manage__avatar">
+          <image wx:if="{{item.avatarUrl}}" class="manage__avatar-img" src="{{item.avatarUrl}}" mode="aspectFill" />
+          <text wx:else class="manage__avatar-emoji">🍚</text>
+        </view>
+
+        <view class="manage__info col">
+          <view class="manage__name-row row">
+            <text class="manage__name">{{item.name}}</text>
+            <text wx:if="{{item.selected}}" class="manage__check">✓</text>
+          </view>
+          <text class="manage__age text-sub">{{item.ageText}}</text>
+        </view>
+
+        <view class="manage__edit" data-id="{{item._id}}" catchtap="onEditBaby">
+          <text class="manage__edit-text">编辑</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="manage__add">
+      <button class="btn-ghost" bindtap="onAddBaby">+ 添加宝贝</button>
+    </view>
+  </block>
+</view>

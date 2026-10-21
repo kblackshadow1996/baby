@@ -1,0 +1,12 @@
+{
+  "name": "allergy",
+  "version": "1.0.0",
+  "description": "过敏观察云函数：add/list/get/listAlerts/updateAlertStatus 统一入口，权限校验在云端，自动聚合 allergy_alerts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

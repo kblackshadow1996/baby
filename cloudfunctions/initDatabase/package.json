@@ -1,0 +1,12 @@
+{
+  "name": "initDatabase",
+  "version": "1.0.0",
+  "description": "管理员用云函数：触发小饭团成长记 10 个云数据库集合的自动创建",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

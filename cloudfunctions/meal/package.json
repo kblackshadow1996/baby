@@ -1,0 +1,12 @@
+{
+  "name": "meal",
+  "version": "1.0.0",
+  "description": "用餐记录云函数：listByDate/listRange 统一入口（add/update/delete 留 Task 9），权限校验在云端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

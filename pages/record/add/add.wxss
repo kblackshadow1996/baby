@@ -1,0 +1,339 @@
+/* pages/record/add/add.wxss —— 添加/编辑餐次记录：清新可爱风 */
+.page {
+  padding: 24rpx 24rpx 200rpx;
+}
+.loading-wrap {
+  padding: 120rpx 0;
+  text-align: center;
+}
+.loading-text {
+  color: var(--color-text-sub);
+  font-size: 28rpx;
+}
+
+/* ===== 通用分区 ===== */
+.section {
+  margin-bottom: 24rpx;
+}
+.section__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 20rpx;
+}
+.section__title--pad {
+  padding-left: 8rpx;
+}
+.section__row {
+  margin-bottom: 0;
+}
+.section__row .section__title {
+  margin-bottom: 0;
+}
+
+/* ===== 通用输入 ===== */
+.field-input {
+  background-color: var(--color-bg);
+  border-radius: 16rpx;
+  padding: 18rpx 24rpx;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+/* ===== 餐别胶囊 ===== */
+.meal-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.meal-chip {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 24rpx;
+  border-radius: var(--radius-btn);
+  background-color: var(--color-bg);
+  border: 2rpx solid transparent;
+}
+.meal-chip--on {
+  background-color: var(--color-pink-soft);
+  border-color: var(--color-primary);
+}
+.meal-chip__icon {
+  font-size: 30rpx;
+  margin-right: 8rpx;
+}
+.meal-chip__label {
+  font-size: 26rpx;
+  color: var(--color-text);
+}
+.meal-chip--on .meal-chip__label {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+.custom-name {
+  margin-top: 20rpx;
+}
+
+/* ===== 用餐时间 ===== */
+.time-pick {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 8rpx 10rpx 24rpx;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-btn);
+}
+.time-pick__text {
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.time-pick__arrow {
+  margin-left: 8rpx;
+  color: var(--color-text-sub);
+  font-size: 32rpx;
+}
+
+/* ===== 食物卡片 ===== */
+.food-card {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+}
+.food-card__head {
+  margin-bottom: 20rpx;
+}
+.food-card__index {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.food-card__remove {
+  padding: 6rpx 20rpx;
+  border-radius: var(--radius-btn);
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-size: 24rpx;
+}
+.food-name {
+  margin-bottom: 20rpx;
+}
+.food-name__input {
+  flex: 1;
+}
+.food-name__pick {
+  margin-left: 16rpx;
+  padding: 16rpx 24rpx;
+  border-radius: var(--radius-btn);
+  background-color: var(--color-blue-soft);
+  color: #5B9BD5;
+  font-size: 24rpx;
+  white-space: nowrap;
+}
+
+/* 份量模式切换 */
+.amount-mode {
+  display: inline-flex;
+  padding: 6rpx;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-btn);
+  margin-bottom: 20rpx;
+}
+.amount-mode__tab {
+  padding: 10rpx 32rpx;
+  border-radius: var(--radius-btn);
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+.amount-mode__tab--on {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+/* 档位胶囊 */
+.level-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.level-chip {
+  padding: 12rpx 28rpx;
+  border-radius: var(--radius-btn);
+  background-color: var(--color-bg);
+  border: 2rpx solid transparent;
+  font-size: 26rpx;
+  color: var(--color-text);
+}
+.level-chip--on {
+  background-color: var(--color-pink-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* 精确值 */
+.amount-custom {
+  gap: 16rpx;
+}
+.amount-custom__value {
+  flex: 1;
+}
+.amount-custom__unit {
+  min-width: 140rpx;
+}
+.unit-pick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18rpx 24rpx;
+  background-color: var(--color-bg);
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.unit-pick__arrow {
+  margin-left: 10rpx;
+  color: var(--color-text-sub);
+  font-size: 24rpx;
+}
+
+/* 添加食物 */
+.add-food {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx;
+  border-radius: var(--radius-card);
+  border: 2rpx dashed var(--color-primary);
+  color: var(--color-primary);
+  font-size: 28rpx;
+  background-color: var(--color-card);
+}
+.add-food__plus {
+  font-size: 36rpx;
+  margin-right: 8rpx;
+  line-height: 1;
+}
+
+/* 备注 */
+.note-input {
+  width: 100%;
+  min-height: 140rpx;
+  background-color: var(--color-bg);
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+/* 标记异常反应 */
+.allergy-entry {
+  display: flex;
+  align-items: center;
+}
+.allergy-entry__icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+.allergy-entry__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.allergy-entry__title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-warning);
+}
+.allergy-entry__sub {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+}
+.allergy-entry__arrow {
+  font-size: 36rpx;
+  color: var(--color-text-sub);
+}
+
+/* 删除 */
+.delete-wrap {
+  margin-top: 24rpx;
+}
+.delete-btn {
+  text-align: center;
+  padding: 24rpx;
+  border-radius: var(--radius-card);
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-size: 28rpx;
+}
+
+/* 底部保存栏 */
+.save-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx;
+  background-color: var(--color-card);
+  box-shadow: 0 -4rpx 20rpx rgba(255, 143, 163, 0.1);
+}
+.save-bar__btn {
+  width: 100%;
+}
+
+/* ===== 食谱选择弹层 ===== */
+.picker-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+.picker-panel {
+  width: 100%;
+  max-height: 70vh;
+  background-color: var(--color-card);
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 32rpx 32rpx 48rpx;
+  display: flex;
+  flex-direction: column;
+}
+.picker-panel__head {
+  margin-bottom: 24rpx;
+}
+.picker-panel__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.picker-panel__close {
+  font-size: 32rpx;
+  color: var(--color-text-sub);
+  padding: 0 8rpx;
+}
+.picker-panel__tip {
+  padding: 60rpx 0;
+  text-align: center;
+  color: var(--color-text-sub);
+  font-size: 28rpx;
+}
+.picker-panel__list {
+  max-height: 50vh;
+}
+.picker-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 8rpx;
+  border-bottom: 2rpx solid var(--color-bg);
+}
+.picker-item__title {
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.picker-item__arrow {
+  font-size: 32rpx;
+  color: var(--color-text-sub);
+}

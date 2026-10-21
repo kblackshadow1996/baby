@@ -1,0 +1,324 @@
+/* pages/export/export.wxss —— 数据导出 */
+.page {
+  padding: 24rpx;
+}
+.empty-wrap {
+  padding-top: 120rpx;
+}
+
+/* 顶部介绍 */
+.intro {
+  margin-bottom: 20rpx;
+}
+.intro__title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.intro__desc {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+
+/* 通用 section */
+.section {
+  margin-bottom: 20rpx;
+}
+.section__title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 20rpx;
+}
+
+/* 胶囊选择（范围 / 格式） */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+.chip {
+  padding: 14rpx 36rpx;
+  border-radius: var(--radius-btn);
+  background: var(--color-bg);
+  color: var(--color-text-sub);
+  font-size: 26rpx;
+  margin: 0 16rpx 16rpx 0;
+  border: 2rpx solid transparent;
+}
+.chip--on {
+  background: var(--color-pink-soft);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* 自定义区间 */
+.custom-range {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+}
+.custom-range__item {
+  flex: 1;
+}
+.custom-range__label {
+  display: block;
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+  margin-bottom: 8rpx;
+}
+.custom-range__val {
+  padding: 16rpx 20rpx;
+  background: var(--color-bg);
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  color: var(--color-text);
+}
+.custom-range__sep {
+  margin: 30rpx 20rpx 0;
+  color: var(--color-text-sub);
+}
+
+/* 内容多选 */
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+}
+.check {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 28rpx;
+  border-radius: 16rpx;
+  background: var(--color-bg);
+  margin: 0 16rpx 16rpx 0;
+  border: 2rpx solid transparent;
+}
+.check--on {
+  background: var(--color-green-soft);
+  border-color: #66BB6A;
+}
+.check__box {
+  width: 36rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  border: 2rpx solid var(--color-text-sub);
+  color: #fff;
+  font-size: 24rpx;
+  margin-right: 14rpx;
+}
+.check--on .check__box {
+  background: #66BB6A;
+  border-color: #66BB6A;
+}
+.check__label {
+  font-size: 26rpx;
+  color: var(--color-text);
+}
+
+/* 格式小字说明 */
+.format-tip {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: var(--color-text-sub);
+}
+
+/* 生成按钮 */
+.gen-btn {
+  margin: 8rpx 0 24rpx;
+}
+
+/* 预览区 */
+.preview-head {
+  display: flex;
+  flex-direction: column;
+  margin: 12rpx 8rpx 16rpx;
+}
+.preview-head__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.preview-head__range {
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+  margin-top: 4rpx;
+}
+.preview-card {
+  margin-bottom: 20rpx;
+}
+.preview-card__title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-primary);
+  border-left: 6rpx solid var(--color-primary);
+  padding-left: 16rpx;
+  margin-bottom: 18rpx;
+}
+.muted {
+  color: var(--color-text-sub);
+  font-size: 24rpx;
+  padding: 8rpx 0;
+}
+
+/* 宝贝信息网格 */
+.kv-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.kv {
+  width: 50%;
+  display: flex;
+  margin-bottom: 14rpx;
+}
+.kv__k {
+  color: var(--color-text-sub);
+  font-size: 26rpx;
+  width: 90rpx;
+}
+.kv__v {
+  color: var(--color-text);
+  font-size: 26rpx;
+}
+
+/* 最新成长 */
+.latest__date {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.latest__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10rpx;
+}
+.metric {
+  font-size: 26rpx;
+  color: var(--color-text);
+  margin-right: 28rpx;
+}
+
+/* 迷你表格 */
+.mini-table {
+  margin-top: 16rpx;
+  border: 2rpx solid var(--color-pink-soft);
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+.mini-table__row {
+  display: flex;
+}
+.mini-table__row--head {
+  background: var(--color-pink-soft);
+}
+.mini-table__c {
+  flex: 1;
+  padding: 12rpx 10rpx;
+  font-size: 24rpx;
+  color: var(--color-text);
+  text-align: center;
+  border-bottom: 2rpx solid #F7ECEC;
+}
+.mini-table__row--head .mini-table__c {
+  color: #C77B8B;
+  font-weight: 600;
+  border-bottom: none;
+}
+.mini-table__row:last-child .mini-table__c {
+  border-bottom: none;
+}
+
+/* 辅食摘要 */
+.summary-line {
+  font-size: 26rpx;
+  color: var(--color-text);
+  margin-bottom: 8rpx;
+}
+.cat-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8rpx 0;
+}
+.cat-tag {
+  margin: 0 12rpx 12rpx 0;
+}
+
+/* 过敏 */
+.allergen {
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid #F7ECEC;
+}
+.allergen:last-child {
+  border-bottom: none;
+}
+.allergen__head {
+  display: flex;
+  align-items: center;
+}
+.allergen__name {
+  font-size: 28rpx;
+  color: var(--color-text);
+  font-weight: 600;
+}
+.allergen__status {
+  margin-left: 16rpx;
+}
+.allergen__meta {
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+  margin-top: 6rpx;
+}
+.allergen__sym {
+  font-size: 24rpx;
+  color: var(--color-text);
+  margin-top: 6rpx;
+}
+.sub-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #C77B8B;
+  margin: 18rpx 0 10rpx;
+}
+.event {
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx 0;
+  border-bottom: 2rpx dashed #F0E0E0;
+}
+.event:last-child {
+  border-bottom: none;
+}
+.event__date {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.event__text {
+  font-size: 26rpx;
+  color: var(--color-text);
+  margin-top: 4rpx;
+}
+.event__note {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+  margin-top: 4rpx;
+}
+
+/* 下载打开 */
+.warn-tip {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-size: 24rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  margin: 12rpx 0;
+}
+.open-btn {
+  margin: 12rpx 0 12rpx;
+}
+.file-tip {
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+  text-align: center;
+  padding-bottom: 24rpx;
+}

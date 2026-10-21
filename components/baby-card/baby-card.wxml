@@ -1,0 +1,3 @@
+<view class="baby-card {{padding ? 'baby-card--padding' : ''}}">
+  <slot></slot>
+</view>

@@ -1,0 +1,108 @@
+<nav-bar title="邀请家人" showBack="{{true}}" />
+<view class="page safe-bottom">
+
+  <!-- ===== 接受邀请模式 ===== -->
+  <block wx:if="{{mode === 'accept'}}">
+    <view wx:if="{{acceptLoading}}" class="hint">正在读取邀请…</view>
+
+    <view wx:elif="{{inviteInfo}}" class="card accept-card">
+      <view class="accept-card__baby">
+        <image wx:if="{{inviteInfo.babyAvatarUrl}}" class="accept-card__avatar" src="{{inviteInfo.babyAvatarUrl}}" mode="aspectFill" />
+        <text wx:else class="accept-card__avatar accept-card__avatar--emoji">🍼</text>
+        <view class="accept-card__title">邀请你加入「{{inviteInfo.babyName}}」</view>
+      </view>
+      <view class="accept-card__row">
+        <text class="accept-card__label">邀请人</text>
+        <text class="accept-card__value">{{inviteInfo.inviterNickName || '家人'}}</text>
+      </view>
+      <view class="accept-card__row">
+        <text class="accept-card__label">你的身份</text>
+        <text class="tag">{{roleLabel}}</text>
+      </view>
+      <view class="accept-card__row">
+        <text class="accept-card__label">权限</text>
+        <text class="tag tag-blue">{{permissionLabel}}</text>
+      </view>
+
+      <view wx:if="{{inviteInfo.valid}}" class="accept-card__actions">
+        <button class="btn-primary" bindtap="onConfirmJoin" disabled="{{joining}}">
+          {{joining ? '加入中…' : '确认加入'}}
+        </button>
+      </view>
+      <view wx:else class="accept-card__invalid">
+        <text class="tag tag-warning">{{inviteInfo.reason || '邀请已失效'}}</text>
+      </view>
+    </view>
+
+    <view wx:else class="card">
+      <view class="hint">邀请码无效或已失效</view>
+    </view>
+  </block>
+
+  <!-- ===== 邀请模式 ===== -->
+  <block wx:else>
+    <view wx:if="{{!baby}}" class="card">
+      <view class="hint">请先在「宝贝管理」中选择一个宝贝</view>
+    </view>
+
+    <view wx:elif="{{!isOwner}}" class="card">
+      <view class="hint">仅宝贝的创建者可以邀请家人</view>
+    </view>
+
+    <block wx:else>
+      <!-- 角色选择 -->
+      <view class="card section">
+        <view class="section__title">受邀家人的身份</view>
+        <picker mode="selector" range="{{roleOptions}}" range-key="label" value="{{roleIndex}}" bindchange="onRoleChange">
+          <view class="picker-field">
+            <text>{{roleOptions[roleIndex].label}}</text>
+            <text class="picker-field__arrow">›</text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 权限选择 -->
+      <view class="card section">
+        <view class="section__title">权限</view>
+        <view class="perm-group">
+          <view class="perm {{permission === 'view' ? 'perm--active' : ''}}" data-value="view" bindtap="onSelectPermission">
+            <text class="perm__name">仅查看</text>
+            <text class="perm__desc">只能查看记录</text>
+          </view>
+          <view class="perm {{permission === 'edit' ? 'perm--active' : ''}}" data-value="edit" bindtap="onSelectPermission">
+            <text class="perm__name">可编辑</text>
+            <text class="perm__desc">可添加/修改记录</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 生成的邀请码 -->
+      <view wx:if="{{invite}}" class="card code-card">
+        <view class="code-card__label">邀请码</view>
+        <view class="code-card__code">{{invite.code}}</view>
+        <view class="code-card__expire">{{expireText}}</view>
+        <view class="code-card__actions">
+          <button class="btn-ghost code-card__btn" bindtap="onCopyCode">复制邀请码</button>
+          <button class="btn-primary code-card__btn" open-type="share">分享给家人</button>
+        </view>
+      </view>
+
+      <!-- 生成按钮 -->
+      <view class="actions">
+        <button class="btn-primary" bindtap="onGenerateInvite" disabled="{{generating}}">
+          {{generating ? '生成中…' : (invite ? '重新生成邀请码' : '生成邀请码')}}
+        </button>
+      </view>
+    </block>
+
+    <!-- 我有邀请码（手动加入） -->
+    <view class="card section">
+      <view class="section__title">我有邀请码</view>
+      <view class="join-row">
+        <input class="join-input" type="text" placeholder="输入邀请码加入其他家庭" maxlength="6" value="{{manualCode}}" bindinput="onManualInput" />
+        <button class="btn-primary join-btn" bindtap="onManualJoin" disabled="{{joining}}">加入</button>
+      </view>
+    </view>
+  </block>
+
+</view>

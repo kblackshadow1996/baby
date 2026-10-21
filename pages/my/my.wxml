@@ -1,0 +1,153 @@
+<nav-bar title="我的" />
+<view class="page safe-bottom">
+  <!-- 加载态 -->
+  <view wx:if="{{!ready}}" class="my__loading">
+    <text class="my__loading-emoji">💗</text>
+    <text class="my__loading-text text-sub">正在加载…</text>
+  </view>
+
+  <block wx:else>
+    <!-- 1. 用户卡 -->
+    <view class="card my__user">
+      <view class="my__user-avatar">
+        <image
+          wx:if="{{avatarUrl}}"
+          class="my__user-avatar-img"
+          src="{{avatarUrl}}"
+          mode="aspectFill"
+        />
+        <text wx:else class="my__user-emoji">🐣</text>
+      </view>
+      <view class="my__user-info col">
+        <text wx:if="{{hasUserInfo && nickName}}" class="my__user-name">{{nickName}}</text>
+        <text wx:elif="{{hasUserInfo}}" class="my__user-name">微信用户</text>
+        <text wx:else class="my__user-name">点击完善资料</text>
+        <text class="my__user-sub text-sub">{{hasUserInfo ? '欢迎回来～' : '设置头像与昵称，体验更完整'}}</text>
+      </view>
+      <text class="my__user-edit" bindtap="onOpenProfileModal">完善资料 ›</text>
+    </view>
+
+    <!-- 2. 当前宝贝快捷卡 -->
+    <view wx:if="{{hasBaby}}" class="card my__baby" bindtap="onManageBaby">
+      <view class="my__baby-avatar">
+        <image
+          wx:if="{{babyAvatar}}"
+          class="my__baby-avatar-img"
+          src="{{babyAvatar}}"
+          mode="aspectFill"
+        />
+        <text wx:else class="my__baby-emoji">{{babyEmoji}}</text>
+      </view>
+      <view class="my__baby-info col">
+        <text class="my__baby-name">{{babyName}}</text>
+        <text class="my__baby-age text-sub">{{ageText}}（{{month}}个月）</text>
+      </view>
+      <text class="my__baby-switch">切换/管理 ›</text>
+    </view>
+    <view wx:else class="card my__baby my__baby--empty" bindtap="onAddBaby">
+      <view class="my__baby-avatar">
+        <text class="my__baby-emoji">🍼</text>
+      </view>
+      <view class="my__baby-info col">
+        <text class="my__baby-name">还没有宝贝</text>
+        <text class="my__baby-age text-sub">添加一个宝贝，开始记录成长吧</text>
+      </view>
+      <text class="my__baby-switch">添加宝贝 ›</text>
+    </view>
+
+    <!-- 3. 辅食知识小贴士卡 -->
+    <view wx:if="{{hasBaby && knowledgeTip}}" class="card my__tip">
+      <view class="my__tip-head row">
+        <text class="my__tip-emoji">{{stageEmoji}}</text>
+        <text class="my__tip-title">{{stageName}} · 辅食小知识</text>
+      </view>
+      <text class="my__tip-stage text-sub">{{stageTip}}</text>
+      <text class="my__tip-text">{{knowledgeTip}}</text>
+    </view>
+
+    <!-- 4. 功能入口列表 -->
+    <view class="card my__cells">
+      <view
+        wx:for="{{entries}}"
+        wx:key="key"
+        class="my__cell"
+        data-url="{{item.url}}"
+        data-kind="{{item.kind}}"
+        bindtap="onTapEntry"
+      >
+        <text class="my__cell-icon">{{item.icon}}</text>
+        <text class="my__cell-label">{{item.label}}</text>
+        <text class="my__cell-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="my__footer">
+      <text class="my__footer-text text-sub">{{about.appName}} · {{about.slogan}}</text>
+    </view>
+  </block>
+
+  <!-- 完善资料弹层 -->
+  <view wx:if="{{profileModal}}" class="my__mask" bindtap="onCloseProfileModal">
+    <view class="my__sheet" catchtap="noop">
+      <view class="my__sheet-head row-between">
+        <text class="my__sheet-title">完善资料</text>
+        <text class="my__sheet-close" bindtap="onCloseProfileModal">✕</text>
+      </view>
+      <view class="my__form">
+        <view class="my__form-row col">
+          <text class="my__form-label">头像</text>
+          <button
+            class="my__avatar-btn"
+            open-type="chooseAvatar"
+            bindchooseavatar="onChooseAvatar"
+          >
+            <image
+              wx:if="{{formAvatar}}"
+              class="my__avatar-preview"
+              src="{{formAvatar}}"
+              mode="aspectFill"
+            />
+            <text wx:else class="my__avatar-placeholder">点击选择头像</text>
+          </button>
+        </view>
+        <view class="my__form-row col">
+          <text class="my__form-label">昵称</text>
+          <input
+            class="my__nick-input"
+            type="nickname"
+            placeholder="点击填写微信昵称"
+            value="{{formNickName}}"
+            bindinput="onNickInput"
+            bindchange="onNickInput"
+          />
+        </view>
+      </view>
+      <button
+        class="btn-primary my__save-btn"
+        loading="{{saving}}"
+        disabled="{{saving}}"
+        bindtap="onSaveProfile"
+      >保存</button>
+    </view>
+  </view>
+
+  <!-- 关于我们弹层 -->
+  <view wx:if="{{aboutModal}}" class="my__mask" bindtap="onCloseAbout">
+    <view class="my__sheet" catchtap="noop">
+      <view class="my__sheet-head row-between">
+        <text class="my__sheet-title">关于我们</text>
+        <text class="my__sheet-close" bindtap="onCloseAbout">✕</text>
+      </view>
+      <view class="my__about">
+        <text class="my__about-name">{{about.appName}}</text>
+        <text class="my__about-slogan text-sub">{{about.slogan}}</text>
+        <text class="my__about-intro">{{about.intro}}</text>
+        <view class="my__about-source">
+          <text class="my__about-source-title">📖 食谱来源说明</text>
+          <text class="my__about-source-text">{{about.recipeSource}}</text>
+        </view>
+      </view>
+      <button class="btn-primary my__save-btn" bindtap="onCloseAbout">我知道了</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,208 @@
+/* pages/record/daily/daily.wxss —— 每日记录：周日历 + 记录列表 */
+.page {
+  padding: 24rpx 24rpx 180rpx;
+}
+
+/* 去添加宝贝按钮 */
+.add-baby-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 16rpx;
+}
+
+/* 宝贝信息 */
+.baby-head {
+  padding: 8rpx 8rpx 24rpx;
+}
+.baby-head__name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.baby-head__age {
+  margin-left: 16rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+
+/* 周日历 */
+.week-cal {
+  padding: 24rpx 16rpx;
+}
+.week-cal__header {
+  padding: 0 16rpx 16rpx;
+}
+.week-cal__month {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.week-cal__arrow {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: var(--color-primary);
+  border-radius: 50%;
+}
+.week-cal__arrow:active {
+  background-color: var(--color-pink-soft);
+}
+.week-cal__days {
+  display: flex;
+  flex-direction: row;
+}
+.week-day {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rpx 0;
+}
+.week-day__label {
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+  margin-bottom: 8rpx;
+}
+.week-day__num {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+/* 今天：粉色描边 */
+.week-day__num--today {
+  color: var(--color-primary);
+  border: 2rpx solid var(--color-primary);
+}
+/* 选中态：主粉圆底白字（覆盖今天描边样式） */
+.week-day--selected .week-day__num {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: none;
+}
+/* 有记录小圆点 */
+.week-day__dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  margin-top: 8rpx;
+  background-color: transparent;
+}
+.week-day__dot--on {
+  background-color: var(--color-primary);
+}
+.week-day--selected .week-day__dot--on {
+  background-color: var(--color-warning);
+}
+
+/* 当天标题 */
+.day-title {
+  margin: 32rpx 8rpx 16rpx;
+}
+.day-title__text {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.day-title__count {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+
+/* 记录列表 */
+.record-list {
+  display: flex;
+  flex-direction: column;
+}
+.record-card {
+  margin-bottom: 24rpx;
+  padding: 28rpx 32rpx;
+}
+.record-card:active {
+  opacity: 0.85;
+}
+.record-card__head {
+  margin-bottom: 16rpx;
+}
+.record-card__title {
+  flex-wrap: nowrap;
+}
+.record-card__icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+.record-card__meal {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.record-card__allergy {
+  margin-left: 16rpx;
+}
+.record-card__time {
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+.record-card__foods {
+  display: flex;
+  flex-direction: column;
+  border-top: 2rpx dashed var(--color-pink-soft);
+  padding-top: 16rpx;
+}
+.food-row {
+  padding: 8rpx 0;
+}
+.food-row__name {
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.food-row__amount {
+  font-size: 26rpx;
+  color: var(--color-primary);
+  margin-left: 24rpx;
+}
+.record-card__note {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+  line-height: 1.5;
+}
+
+/* 当天无记录 */
+.record-empty {
+  margin-top: 48rpx;
+}
+
+/* 浮动新增按钮 */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 48rpx;
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  box-shadow: 0 10rpx 28rpx rgba(255, 143, 163, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  margin-bottom: env(safe-area-inset-bottom);
+}
+.fab:active {
+  opacity: 0.9;
+}
+.fab__plus {
+  color: #FFFFFF;
+  font-size: 64rpx;
+  line-height: 1;
+  margin-top: -6rpx;
+}

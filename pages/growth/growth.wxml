@@ -1,0 +1,180 @@
+<nav-bar title="成长曲线" />
+
+<view wx:if="{{!hasBaby}}" class="page">
+  <empty-state icon="📏" text="还没有当前宝贝，先去添加一个宝贝吧" />
+</view>
+
+<view wx:else class="page safe-bottom">
+  <!-- 最新数据卡 -->
+  <view class="latest card">
+    <view class="latest__head">
+      <text class="latest__title">{{babyName}} 的最新数据</text>
+      <text wx:if="{{hasLatest}}" class="latest__date">{{latest.dateText}}</text>
+    </view>
+    <view wx:if="{{hasLatest}}" class="latest__grid">
+      <view class="latest__item">
+        <text class="latest__num">{{latest.heightText}}</text>
+        <text class="latest__label">身高</text>
+      </view>
+      <view class="latest__item">
+        <text class="latest__num">{{latest.weightText}}</text>
+        <text class="latest__label">体重</text>
+      </view>
+      <view class="latest__item">
+        <text class="latest__num">{{latest.headText}}</text>
+        <text class="latest__label">头围</text>
+      </view>
+    </view>
+    <view wx:else class="latest__none">还没有记录，点下方「添加记录」开始</view>
+  </view>
+
+  <!-- 指标切换 tab -->
+  <view class="tabs">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="tabs__item {{metric === item.key ? 'tabs__item--active' : ''}}"
+      bindtap="onSwitchMetric"
+      data-key="{{item.key}}"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 曲线图 -->
+  <view class="chart card">
+    <view class="chart__box">
+      <canvas
+        wx:if="{{!chartFailed}}"
+        id="growthCanvas"
+        type="2d"
+        class="chart__canvas"
+      ></canvas>
+      <view wx:if="{{!hasChartData && !chartFailed}}" class="chart__empty">
+        还没有数据，点添加记录开始记录成长
+      </view>
+      <view wx:if="{{chartFailed}}" class="chart__empty">
+        当前环境暂不支持图表，已为你保留下方数据列表
+      </view>
+    </view>
+
+    <!-- 图例 -->
+    <view class="legend">
+      <view class="legend__item">
+        <view class="legend__dot legend__dot--baby"></view>
+        <text>{{babyName}}（{{metricLabel}} {{metricUnit}}）</text>
+      </view>
+      <view class="legend__item">
+        <view class="legend__line legend__line--p50"></view>
+        <text>P50 中位</text>
+      </view>
+      <view class="legend__item">
+        <view class="legend__line legend__line--ref"></view>
+        <text>WHO P3/P15/P85/P97</text>
+      </view>
+    </view>
+
+    <view class="chart__note">
+      参考线为 WHO 生长标准近似值，仅供参考，请以医生评估为准
+    </view>
+  </view>
+
+  <!-- 历史记录列表 -->
+  <view class="history">
+    <view class="history__head">
+      <text class="history__title">历史记录</text>
+      <text class="history__count">{{recordCount}} 条</text>
+    </view>
+
+    <view wx:if="{{recordCount === 0}}" class="history__empty">
+      还没有记录
+    </view>
+
+    <view
+      wx:for="{{historyList}}"
+      wx:key="_id"
+      class="history__item card"
+      bindtap="onTapHistory"
+      data-id="{{item._id}}"
+    >
+      <view class="history__date">{{item.dateText}}</view>
+      <view class="history__metrics">
+        <text class="history__m">身高 {{item.heightText}}</text>
+        <text class="history__m">体重 {{item.weightText}}</text>
+        <text class="history__m">头围 {{item.headText}}</text>
+      </view>
+      <text class="history__edit">编辑 ›</text>
+    </view>
+  </view>
+
+  <!-- 浮动添加按钮 -->
+  <view class="fab" bindtap="openAddForm">＋</view>
+</view>
+
+<!-- 添加/编辑弹层 -->
+<view wx:if="{{formVisible}}" class="modal" bindtap="closeForm">
+  <view class="modal__panel" catchtap="noop">
+    <view class="modal__title">{{formMode === 'edit' ? '编辑记录' : '添加记录'}}</view>
+
+    <view class="field">
+      <text class="field__label">日期</text>
+      <picker mode="date" value="{{formDate}}" end="{{today}}" bindchange="onFormDateChange">
+        <view class="field__picker">{{formDate || '请选择日期'}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="field__label">身高 (cm)</text>
+      <input
+        class="field__input"
+        type="digit"
+        placeholder="选填"
+        value="{{formHeight}}"
+        bindinput="onFormHeightInput"
+      />
+    </view>
+
+    <view class="field">
+      <text class="field__label">体重 (kg)</text>
+      <input
+        class="field__input"
+        type="digit"
+        placeholder="选填"
+        value="{{formWeight}}"
+        bindinput="onFormWeightInput"
+      />
+    </view>
+
+    <view class="field">
+      <text class="field__label">头围 (cm)</text>
+      <input
+        class="field__input"
+        type="digit"
+        placeholder="选填"
+        value="{{formHead}}"
+        bindinput="onFormHeadInput"
+      />
+    </view>
+
+    <view class="field__hint">身高 / 体重 / 头围至少填写一项</view>
+
+    <view class="modal__actions">
+      <button
+        wx:if="{{formMode === 'edit'}}"
+        class="modal__del"
+        bindtap="deleteRecord"
+        disabled="{{formSubmitting}}"
+      >
+        删除
+      </button>
+      <button class="btn-ghost modal__cancel" bindtap="closeForm">取消</button>
+      <button
+        class="btn-primary modal__save"
+        bindtap="submitForm"
+        disabled="{{formSubmitting}}"
+      >
+        {{formSubmitting ? '保存中…' : '保存'}}
+      </button>
+    </view>
+  </view>
+</view>

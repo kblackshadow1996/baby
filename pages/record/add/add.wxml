@@ -1,0 +1,199 @@
+<!-- pages/record/add/add.wxml —— 添加/编辑餐次记录 -->
+<wxs module="helper">
+  function unitIndex(unit, units) {
+    for (var i = 0; i < units.length; i++) {
+      if (units[i] === unit) { return i; }
+    }
+    return 0;
+  }
+  module.exports = { unitIndex: unitIndex };
+</wxs>
+<nav-bar title="{{pageTitle}}" showBack="{{true}}" />
+<view wx:if="{{loading}}" class="loading-wrap">
+  <text class="loading-text">加载中…</text>
+</view>
+<view wx:else class="page">
+  <!-- 1. 餐别类型 -->
+  <view class="card section">
+    <view class="section__title">餐别</view>
+    <view class="meal-types">
+      <view
+        wx:for="{{mealTypeOptions}}"
+        wx:key="value"
+        class="meal-chip {{mealType === item.value ? 'meal-chip--on' : ''}}"
+        data-value="{{item.value}}"
+        bindtap="onSelectMealType"
+      >
+        <text class="meal-chip__icon">{{item.icon}}</text>
+        <text class="meal-chip__label">{{item.label}}</text>
+      </view>
+    </view>
+    <view wx:if="{{mealType === 'custom'}}" class="custom-name">
+      <input
+        class="field-input"
+        placeholder="自定义餐别名称，如：下午茶"
+        value="{{customMealName}}"
+        maxlength="20"
+        bindinput="onCustomMealNameInput"
+      />
+    </view>
+  </view>
+  <!-- 2. 用餐时间 -->
+  <view class="card section">
+    <view class="section__row row-between">
+      <view class="section__title">用餐时间</view>
+      <picker mode="time" value="{{mealTime}}" bindchange="onTimeChange">
+        <view class="time-pick">
+          <text class="time-pick__text">{{mealTime || '选择时间'}}</text>
+          <text class="time-pick__arrow">›</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+  <!-- 3. 食物列表 -->
+  <view class="section">
+    <view class="section__title section__title--pad">吃了什么</view>
+    <view
+      wx:for="{{foods}}"
+      wx:key="index"
+      wx:for-item="food"
+      wx:for-index="fi"
+      class="card food-card"
+    >
+      <view class="food-card__head row-between">
+        <text class="food-card__index">食物 {{fi + 1}}</text>
+        <view
+          wx:if="{{foods.length > 1}}"
+          class="food-card__remove"
+          data-index="{{fi}}"
+          bindtap="onRemoveFood"
+        >
+          <text>删除</text>
+        </view>
+      </view>
+      <!-- 名称 + 从食谱选 -->
+      <view class="food-name row">
+        <input
+          class="field-input food-name__input"
+          placeholder="食物名称，如：高铁米粉"
+          value="{{food.name}}"
+          maxlength="30"
+          data-index="{{fi}}"
+          bindinput="onFoodNameInput"
+          bindblur="onFoodNameBlur"
+        />
+        <view class="food-name__pick" data-index="{{fi}}" bindtap="openRecipePicker">
+          <text>从食谱选</text>
+        </view>
+      </view>
+      <!-- 份量模式切换 -->
+      <view class="amount-mode row">
+        <view
+          class="amount-mode__tab {{food.amountMode === 'preset' ? 'amount-mode__tab--on' : ''}}"
+          data-index="{{fi}}"
+          data-mode="preset"
+          bindtap="onAmountModeChange"
+        >档位</view>
+        <view
+          class="amount-mode__tab {{food.amountMode === 'custom' ? 'amount-mode__tab--on' : ''}}"
+          data-index="{{fi}}"
+          data-mode="custom"
+          bindtap="onAmountModeChange"
+        >精确</view>
+      </view>
+      <!-- 档位 -->
+      <view wx:if="{{food.amountMode === 'preset'}}" class="level-chips">
+        <view
+          wx:for="{{amountLevelOptions}}"
+          wx:key="value"
+          wx:for-item="lv"
+          class="level-chip {{food.amountLevel === lv.value ? 'level-chip--on' : ''}}"
+          data-index="{{fi}}"
+          data-level="{{lv.value}}"
+          bindtap="onAmountLevelSelect"
+        >{{lv.label}}</view>
+      </view>
+      <!-- 精确值 -->
+      <view wx:else class="amount-custom row">
+        <input
+          class="field-input amount-custom__value"
+          type="digit"
+          placeholder="数值"
+          value="{{food.amountValue}}"
+          data-index="{{fi}}"
+          bindinput="onAmountValueInput"
+        />
+        <picker
+          class="amount-custom__unit"
+          range="{{amountUnits}}"
+          value="{{helper.unitIndex(food.amountUnit, amountUnits)}}"
+          data-index="{{fi}}"
+          bindchange="onAmountUnitChange"
+        >
+          <view class="unit-pick">
+            <text>{{food.amountUnit}}</text>
+            <text class="unit-pick__arrow">▾</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="add-food" bindtap="onAddFood">
+      <text class="add-food__plus">+</text>
+      <text>添加食物</text>
+    </view>
+  </view>
+  <!-- 4. 备注 -->
+  <view class="card section">
+    <view class="section__title">备注</view>
+    <textarea
+      class="note-input"
+      placeholder="选填，记录宝宝的反应或其它说明"
+      value="{{note}}"
+      maxlength="200"
+      bindinput="onNoteInput"
+    />
+  </view>
+  <!-- 5. 标记异常反应 -->
+  <view class="card section allergy-entry" bindtap="onMarkAllergy">
+    <text class="allergy-entry__icon">⚠</text>
+    <view class="allergy-entry__body">
+      <text class="allergy-entry__title">标记异常反应</text>
+      <text class="allergy-entry__sub">保存本餐后去记录疑似过敏</text>
+    </view>
+    <text class="allergy-entry__arrow">›</text>
+  </view>
+  <!-- 编辑模式：删除 -->
+  <view wx:if="{{isEdit}}" class="delete-wrap">
+    <view class="delete-btn" bindtap="onDelete">删除这条记录</view>
+  </view>
+</view>
+<!-- 底部保存栏 -->
+<view wx:if="{{!loading}}" class="save-bar safe-bottom">
+  <button class="btn-primary save-bar__btn" loading="{{saving}}" disabled="{{saving}}" bindtap="onSave">
+    {{isEdit ? '保存修改' : '保存记录'}}
+  </button>
+</view>
+<!-- 食谱选择弹层 -->
+<view wx:if="{{recipePickerVisible}}" class="picker-mask" bindtap="closeRecipePicker">
+  <view class="picker-panel" catchtap="noop">
+    <view class="picker-panel__head row-between">
+      <text class="picker-panel__title">从食谱选择</text>
+      <text class="picker-panel__close" bindtap="closeRecipePicker">✕</text>
+    </view>
+    <view wx:if="{{recipePickerLoading}}" class="picker-panel__tip">加载中…</view>
+    <view wx:elif="{{recipeList.length === 0}}" class="picker-panel__tip">暂无可选食谱</view>
+    <scroll-view wx:else scroll-y class="picker-panel__list">
+      <view
+        wx:for="{{recipeList}}"
+        wx:key="_id"
+        class="picker-item"
+        data-id="{{item._id}}"
+        data-title="{{item.title}}"
+        bindtap="onPickRecipe"
+      >
+        <text class="picker-item__title">{{item.title}}</text>
+        <text class="picker-item__arrow">›</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

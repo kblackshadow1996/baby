@@ -1,0 +1,185 @@
+<nav-bar title="数据导出" />
+<view class="page safe-bottom">
+  <!-- 无当前宝贝 -->
+  <view wx:if="{{!hasBaby}}" class="empty-wrap">
+    <empty-state icon="📄" text="请先在首页选择或添加宝贝，再导出健康报告" />
+  </view>
+
+  <block wx:else>
+    <view class="intro card">
+      <view class="intro__title">健康成长报告</view>
+      <view class="intro__desc">汇总 {{babyName}} 的成长 / 辅食 / 过敏数据，方便就医时给医生看。</view>
+    </view>
+
+    <!-- 时间范围 -->
+    <view class="card section">
+      <view class="section__title">时间范围</view>
+      <view class="chips">
+        <view
+          wx:for="{{rangeOptions}}"
+          wx:key="key"
+          class="chip {{range === item.key ? 'chip--on' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onSelectRange"
+        >{{item.label}}</view>
+      </view>
+      <view wx:if="{{range === 'custom'}}" class="custom-range">
+        <view class="custom-range__item">
+          <text class="custom-range__label">开始</text>
+          <picker mode="date" value="{{customStart}}" end="{{today}}" bindchange="onCustomStartChange">
+            <view class="custom-range__val">{{customStart || '选择日期'}}</view>
+          </picker>
+        </view>
+        <text class="custom-range__sep">至</text>
+        <view class="custom-range__item">
+          <text class="custom-range__label">结束</text>
+          <picker mode="date" value="{{customEnd}}" end="{{today}}" bindchange="onCustomEndChange">
+            <view class="custom-range__val">{{customEnd || '选择日期'}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <!-- 导出内容 -->
+    <view class="card section">
+      <view class="section__title">导出内容</view>
+      <view class="checks">
+        <view
+          wx:for="{{contentOptions}}"
+          wx:key="key"
+          class="check {{contentSel[item.key] ? 'check--on' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onToggleContent"
+        >
+          <text class="check__box">{{contentSel[item.key] ? '✓' : ''}}</text>
+          <text class="check__label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 导出格式 -->
+    <view class="card section">
+      <view class="section__title">导出格式</view>
+      <view class="chips">
+        <view
+          wx:for="{{formatOptions}}"
+          wx:key="key"
+          class="chip {{format === item.key ? 'chip--on' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onSelectFormat"
+        >{{item.label}}</view>
+      </view>
+      <view class="format-tip">
+        <text wx:if="{{format === 'pdf'}}">PDF 可直接打开并转发给医生/家人；中文显示需在云函数放置字体，否则请改用网页版。</text>
+        <text wx:else>网页版中文无忧，建议在电脑端浏览器打开查看。</text>
+      </view>
+    </view>
+
+    <!-- 生成按钮 -->
+    <button class="btn-primary gen-btn" bindtap="onGenerate" disabled="{{generating}}">
+      {{generating ? '生成中...' : '生成报告'}}
+    </button>
+
+    <!-- 报告预览 -->
+    <block wx:if="{{hasReport && report}}">
+      <view class="preview-head">
+        <text class="preview-head__title">报告预览</text>
+        <text class="preview-head__range">{{report.range.label}}（{{report.range.startDate}} 至 {{report.range.endDate}}）</text>
+      </view>
+
+      <!-- 宝贝信息 -->
+      <view class="card preview-card">
+        <view class="preview-card__title">宝贝信息</view>
+        <view class="kv-grid">
+          <view class="kv"><text class="kv__k">姓名</text><text class="kv__v">{{report.baby.name}}</text></view>
+          <view class="kv"><text class="kv__k">性别</text><text class="kv__v">{{report.baby.gender}}</text></view>
+          <view class="kv"><text class="kv__k">生日</text><text class="kv__v">{{report.baby.birthday}}</text></view>
+          <view class="kv"><text class="kv__k">月龄</text><text class="kv__v">{{report.baby.ageText}}</text></view>
+        </view>
+      </view>
+
+      <!-- 成长 -->
+      <view wx:if="{{report.growth}}" class="card preview-card">
+        <view class="preview-card__title">成长数据</view>
+        <view wx:if="{{report.growth.latest}}" class="latest">
+          <text class="latest__date">最新（{{report.growth.latest.date}}）</text>
+          <view class="latest__metrics">
+            <text class="metric">身高 {{report.growth.latest.heightText}}</text>
+            <text class="metric">体重 {{report.growth.latest.weightText}}</text>
+            <text class="metric">头围 {{report.growth.latest.headText}}</text>
+          </view>
+        </view>
+        <view wx:else class="muted">暂无成长测量记录</view>
+        <view wx:if="{{report.growth.records.length > 0}}" class="mini-table">
+          <view class="mini-table__row mini-table__row--head">
+            <text class="mini-table__c">日期</text>
+            <text class="mini-table__c">身高</text>
+            <text class="mini-table__c">体重</text>
+            <text class="mini-table__c">头围</text>
+          </view>
+          <view wx:for="{{report.growth.records}}" wx:key="date" class="mini-table__row">
+            <text class="mini-table__c">{{item.date}}</text>
+            <text class="mini-table__c">{{item.heightText}}</text>
+            <text class="mini-table__c">{{item.weightText}}</text>
+            <text class="mini-table__c">{{item.headText}}</text>
+          </view>
+        </view>
+        <view wx:else class="muted">该区间无成长记录（历史共 {{report.growth.totalRecords}} 条）</view>
+      </view>
+
+      <!-- 辅食 -->
+      <view wx:if="{{report.meal}}" class="card preview-card">
+        <view class="preview-card__title">辅食记录</view>
+        <view class="summary-line">区间内 {{report.meal.rangeMealCount}} 条用餐 · 覆盖 {{report.meal.activeDays}} 天 · {{report.meal.distinctFoods}} 种食物</view>
+        <view class="summary-line">辅食时间线已尝试 {{report.meal.triedFoodsTotal}} 种食材</view>
+        <view wx:if="{{report.meal.categoryList.length > 0}}" class="cat-tags">
+          <text wx:for="{{report.meal.categoryList}}" wx:key="name" class="tag tag-green cat-tag">{{item.name}} {{item.count}}</text>
+        </view>
+        <view wx:if="{{report.meal.byDate.length > 0}}" class="mini-table">
+          <view class="mini-table__row mini-table__row--head">
+            <text class="mini-table__c">日期</text>
+            <text class="mini-table__c">餐次</text>
+            <text class="mini-table__c">食物种类</text>
+          </view>
+          <view wx:for="{{report.meal.byDate}}" wx:key="date" class="mini-table__row">
+            <text class="mini-table__c">{{item.date}}</text>
+            <text class="mini-table__c">{{item.mealCount}}</text>
+            <text class="mini-table__c">{{item.foodKinds}}</text>
+          </view>
+        </view>
+        <view wx:else class="muted">该区间无用餐记录</view>
+      </view>
+
+      <!-- 过敏 -->
+      <view wx:if="{{report.allergy}}" class="card preview-card">
+        <view class="preview-card__title">过敏信息</view>
+        <block wx:if="{{report.allergy.allergens.length > 0}}">
+          <view wx:for="{{report.allergy.allergens}}" wx:key="foodName" class="allergen">
+            <view class="allergen__head">
+              <text class="allergen__name">{{item.foodName}}</text>
+              <text class="tag tag-warning allergen__status">{{item.status}}</text>
+            </view>
+            <view class="allergen__meta">首次 {{item.firstOccurrence}} · 最近 {{item.lastOccurrence}}</view>
+            <view wx:if="{{item.symptomsText}}" class="allergen__sym">症状：{{item.symptomsText}}</view>
+          </view>
+        </block>
+        <view wx:else class="muted">暂无过敏原记录</view>
+        <block wx:if="{{report.allergy.records.length > 0}}">
+          <view class="sub-title">区间内过敏事件</view>
+          <view wx:for="{{report.allergy.records}}" wx:key="date" class="event">
+            <text class="event__date">{{item.date}}</text>
+            <text class="event__text">症状：{{item.symptomsText}}；疑似：{{item.suspectedText}}</text>
+            <text wx:if="{{item.note}}" class="event__note">备注：{{item.note}}</text>
+          </view>
+        </block>
+      </view>
+
+      <!-- 下载/打开 -->
+      <view wx:if="{{fontMissing}}" class="warn-tip">PDF 中文字体未配置，中文可能无法显示，建议改用网页版导出。</view>
+      <button class="btn-primary open-btn" bindtap="onOpenFile" disabled="{{downloading}}">
+        {{downloading ? '处理中...' : (resultFormat === 'pdf' ? '打开 / 转发 PDF' : '打开网页版报告')}}
+      </button>
+      <view class="file-tip">文件已保存到云端。{{resultFormat === 'pdf' ? '可在打开后通过右上角菜单转发给医生。' : '网页版建议电脑端打开。'}}</view>
+    </block>
+  </block>
+</view>

@@ -1,0 +1,158 @@
+/* pages/allergy/list/list.wxss —— 过敏观察 */
+.page {
+  padding: 24rpx 24rpx 180rpx;
+}
+.add-baby-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 16rpx;
+}
+
+/* ===== 宝贝名 ===== */
+.baby-head {
+  padding: 8rpx 8rpx 24rpx;
+}
+.baby-head__name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.baby-head__sub {
+  margin-left: 12rpx;
+}
+
+/* ===== 过敏原汇总卡 ===== */
+.summary {
+  margin-bottom: 24rpx;
+}
+.summary__header {
+  margin-bottom: 20rpx;
+}
+.summary__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.summary__empty {
+  padding: 24rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #66BB6A;
+}
+.summary__tags {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+.alert-item {
+  display: flex;
+  flex-direction: column;
+}
+.alert-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 12rpx;
+  padding: 12rpx 26rpx;
+  border-radius: var(--radius-btn);
+  font-size: 26rpx;
+}
+.alert-tag__status {
+  font-size: 20rpx;
+  padding: 2rpx 14rpx;
+  border-radius: var(--radius-btn);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+/* 疑似：淡红不惊悚 */
+.alert-tag--suspected {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+/* 确认：深红 */
+.alert-tag--confirmed {
+  background-color: #F8D7D7;
+  color: #C0392B;
+}
+/* 已排除：灰 */
+.alert-tag--cleared {
+  background-color: #EFEFEF;
+  color: var(--color-text-sub);
+}
+.alert-detail {
+  margin-top: 12rpx;
+  padding: 16rpx 20rpx;
+  background-color: #FAFAFA;
+  border-radius: 16rpx;
+}
+.alert-detail__row {
+  display: flex;
+  flex-direction: row;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+.alert-detail__label {
+  color: var(--color-text-sub);
+  flex-shrink: 0;
+}
+.alert-detail__value {
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+/* ===== 时间线 ===== */
+.timeline__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 8rpx 8rpx 16rpx;
+}
+.timeline__empty {
+  padding: 24rpx 0;
+}
+.rec-card {
+  margin-bottom: 20rpx;
+}
+.rec-card__head {
+  margin-bottom: 12rpx;
+}
+.rec-card__date {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.rec-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+}
+.rec-tag {
+  font-size: 22rpx;
+}
+.rec-card__note {
+  margin-top: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===== 浮动 + 按钮 ===== */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 60rpx;
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  box-shadow: 0 8rpx 24rpx rgba(255, 143, 163, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.fab__icon {
+  color: #FFFFFF;
+  font-size: 64rpx;
+  line-height: 1;
+}

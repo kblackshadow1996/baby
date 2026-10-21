@@ -1,0 +1,312 @@
+/* pages/my/my.wxss —— 个人中心（Task 17），清新可爱风 */
+.page {
+  padding: 24rpx;
+}
+.card {
+  margin-bottom: 24rpx;
+}
+
+/* ===== 加载态 ===== */
+.my__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 160rpx 0;
+}
+.my__loading-emoji {
+  font-size: 72rpx;
+  line-height: 1;
+  opacity: 0.6;
+}
+.my__loading-text {
+  margin-top: 20rpx;
+}
+
+/* ===== 1. 用户卡 ===== */
+.my__user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  background-image: linear-gradient(135deg, #FFE4E1 0%, #FFF1F3 60%, #FFFFFF 100%);
+}
+.my__user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: var(--color-pink-soft, #FFE4E1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(255, 143, 163, 0.18);
+}
+.my__user-avatar-img {
+  width: 100%;
+  height: 100%;
+}
+.my__user-emoji {
+  font-size: 64rpx;
+  line-height: 1;
+}
+.my__user-info {
+  flex: 1;
+  margin-left: 24rpx;
+  min-width: 0;
+}
+.my__user-name {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.my__user-sub {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+}
+.my__user-edit {
+  position: absolute;
+  top: 28rpx;
+  right: 28rpx;
+  font-size: 24rpx;
+  color: var(--color-primary, #FF8FA3);
+}
+
+/* ===== 2. 当前宝贝卡 ===== */
+.my__baby {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+.my__baby-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background-color: var(--color-green-soft, #E8F5E9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.my__baby-avatar-img {
+  width: 100%;
+  height: 100%;
+}
+.my__baby-emoji {
+  font-size: 52rpx;
+  line-height: 1;
+}
+.my__baby-info {
+  flex: 1;
+  margin-left: 24rpx;
+  min-width: 0;
+}
+.my__baby-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.my__baby-age {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+}
+.my__baby-switch {
+  flex-shrink: 0;
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-primary, #FF8FA3);
+}
+.my__baby--empty .my__baby-avatar {
+  background-color: var(--color-pink-soft, #FFE4E1);
+}
+
+/* ===== 3. 知识贴士卡 ===== */
+.my__tip {
+  background-color: var(--color-yellow-soft, #FFF8E1);
+}
+.my__tip-head {
+  align-items: center;
+}
+.my__tip-emoji {
+  font-size: 40rpx;
+  margin-right: 14rpx;
+}
+.my__tip-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.my__tip-stage {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+}
+.my__tip-text {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--color-text, #4A4A4A);
+}
+
+/* ===== 4. 功能入口 cell 列表 ===== */
+.my__cells {
+  padding: 8rpx 32rpx;
+}
+.my__cell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 26rpx 0;
+  border-bottom: 2rpx solid #F3F3F3;
+}
+.my__cell:last-child {
+  border-bottom: none;
+}
+.my__cell-icon {
+  width: 56rpx;
+  font-size: 40rpx;
+  text-align: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.my__cell-label {
+  flex: 1;
+  font-size: 30rpx;
+  color: var(--color-text, #4A4A4A);
+}
+.my__cell-arrow {
+  flex-shrink: 0;
+  font-size: 40rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+
+/* ===== 页脚 ===== */
+.my__footer {
+  padding: 16rpx 0 8rpx;
+  text-align: center;
+}
+.my__footer-text {
+  font-size: 22rpx;
+}
+
+/* ===== 弹层通用 ===== */
+.my__mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 100;
+}
+.my__sheet {
+  background-color: var(--color-card, #FFFFFF);
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 32rpx 32rpx calc(32rpx + env(safe-area-inset-bottom));
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.my__sheet-head {
+  margin-bottom: 24rpx;
+}
+.my__sheet-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.my__sheet-close {
+  font-size: 36rpx;
+  color: var(--color-text-sub, #9B9B9B);
+  padding: 0 8rpx;
+}
+.my__save-btn {
+  margin-top: 32rpx;
+}
+
+/* ===== 完善资料表单 ===== */
+.my__form-row {
+  margin-bottom: 28rpx;
+}
+.my__form-label {
+  font-size: 26rpx;
+  color: var(--color-text-sub, #9B9B9B);
+  margin-bottom: 14rpx;
+}
+.my__avatar-btn {
+  width: 140rpx;
+  height: 140rpx;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--color-pink-soft, #FFE4E1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  line-height: normal;
+}
+.my__avatar-btn::after {
+  border: none;
+}
+.my__avatar-preview {
+  width: 100%;
+  height: 100%;
+}
+.my__avatar-placeholder {
+  font-size: 22rpx;
+  color: var(--color-text-sub, #9B9B9B);
+  text-align: center;
+}
+.my__nick-input {
+  height: 84rpx;
+  padding: 0 24rpx;
+  border-radius: var(--radius-card, 24rpx);
+  background-color: #F7F7F7;
+  font-size: 28rpx;
+  color: var(--color-text, #4A4A4A);
+}
+
+/* ===== 关于我们 ===== */
+.my__about-name {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-primary, #FF8FA3);
+}
+.my__about-slogan {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+}
+.my__about-intro {
+  display: block;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--color-text, #4A4A4A);
+}
+.my__about-source {
+  margin-top: 24rpx;
+  padding: 24rpx;
+  border-radius: var(--radius-card, 24rpx);
+  background-color: var(--color-green-soft, #E8F5E9);
+}
+.my__about-source-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+  margin-bottom: 12rpx;
+}
+.my__about-source-text {
+  display: block;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: var(--color-text, #4A4A4A);
+}

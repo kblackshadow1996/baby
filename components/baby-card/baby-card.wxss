@@ -1,0 +1,10 @@
+.baby-card {
+  background-color: var(--color-card, #FFFFFF);
+  border-radius: var(--radius-card, 24rpx);
+  box-shadow: var(--shadow-card, 0 8rpx 24rpx rgba(255, 143, 163, 0.12));
+  /* Task18：与 .card 统一过渡 */
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.baby-card--padding {
+  padding: 32rpx;
+}

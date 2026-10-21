@@ -1,0 +1,12 @@
+{
+  "name": "timeline",
+  "version": "1.0.0",
+  "description": "辅食时间线云函数：list（时间线 + 统计）/ delete（误记可删），权限校验在云端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/recipe/list/list",
+    "pages/recipe/detail/detail",
+    "pages/recipe/create/create",
+    "pages/record/daily/daily",
+    "pages/record/add/add",
+    "pages/allergy/list/list",
+    "pages/allergy/detail/detail",
+    "pages/growth/growth",
+    "pages/timeline/timeline",
+    "pages/baby/manage/manage",
+    "pages/baby/profile/profile",
+    "pages/family/members/members",
+    "pages/family/invite/invite",
+    "pages/export/export",
+    "pages/my/my"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#FFF8F6",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#FFF8F6",
+    "navigationBarTitleText": "小饭团成长记"
+  },
+  "tabBar": {
+    "color": "#B0A8A8",
+    "selectedColor": "#FF8FA3",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/recipe/list/list",
+        "text": "食谱"
+      },
+      {
+        "pagePath": "pages/record/daily/daily",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "style": "v2"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "initRecipes",
+  "version": "1.0.0",
+  "description": "管理员用云函数：导入小饭团成长记官方预置食谱到 recipes 集合（支持 reset/upsert）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

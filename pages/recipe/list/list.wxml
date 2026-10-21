@@ -1,0 +1,113 @@
+<!-- pages/recipe/list/list.wxml —— 食谱库 -->
+<nav-bar title="食谱库" />
+<view class="page safe-bottom">
+  <!-- 官方 / 我的 tab -->
+  <view class="tabs">
+    <view
+      class="tabs__item {{tab === 'official' ? 'tabs__item--active' : ''}}"
+      data-tab="official"
+      bindtap="onTabTap"
+    >官方食谱</view>
+    <view
+      class="tabs__item {{tab === 'mine' ? 'tabs__item--active' : ''}}"
+      data-tab="mine"
+      bindtap="onTabTap"
+    >我的食谱</view>
+  </view>
+
+  <!-- 月龄段横向选择器 -->
+  <scroll-view class="stage-bar" scroll-x scroll-into-view="{{scrollIntoStage}}" scroll-with-animation>
+    <view class="stage-bar__inner">
+      <view
+        wx:for="{{stages}}"
+        wx:key="key"
+        id="stage-{{item.key}}"
+        class="stage-chip {{activeStageKey === item.key ? 'stage-chip--active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onStageTap"
+      >
+        <text class="stage-chip__name">{{item.name}}</text>
+        <text class="stage-chip__range">{{item.range}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 标签筛选条 -->
+  <scroll-view class="tag-bar" scroll-x scroll-with-animation>
+    <view class="tag-bar__inner">
+      <view
+        wx:for="{{tagOptions}}"
+        wx:key="*this"
+        class="tag-pill {{activeTag === item ? 'tag-pill--active' : ''}}"
+        data-tag="{{item}}"
+        bindtap="onTagTap"
+      >{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- 加载中骨架 -->
+  <view wx:if="{{loading}}" class="skeleton">
+    <view class="skeleton__card" wx:for="{{[1,2,3]}}" wx:key="*this">
+      <view class="skeleton__img"></view>
+      <view class="skeleton__lines">
+        <view class="skeleton__line skeleton__line--title"></view>
+        <view class="skeleton__line"></view>
+        <view class="skeleton__line skeleton__line--short"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空结果 -->
+  <block wx:elif="{{recipes.length === 0}}">
+    <view wx:if="{{tab === 'mine'}}" class="empty-wrap">
+      <empty-state icon="🍳" text="还没有自建食谱" />
+      <button class="btn-primary empty-wrap__btn" bindtap="onCreateTap">创建食谱</button>
+    </view>
+    <empty-state wx:else icon="🍲" text="这个阶段还没有食谱哦" />
+  </block>
+
+  <!-- 食谱卡片列表 -->
+  <view wx:else class="recipe-list">
+    <view
+      wx:for="{{recipes}}"
+      wx:key="_id"
+      class="recipe-card {{item._hasAllergen ? 'recipe-card--warn' : ''}}"
+      data-id="{{item._id}}"
+      bindtap="onCardTap"
+    >
+      <!-- 过敏原警告标识 -->
+      <view wx:if="{{item._hasAllergen}}" class="recipe-card__alert">⚠️</view>
+      <!-- 图片 / emoji 占位 -->
+      <view class="recipe-card__media">
+        <image
+          wx:if="{{item.imageUrl && !item._imgError}}"
+          class="recipe-card__img"
+          src="{{item.imageUrl}}"
+          mode="aspectFill"
+          data-index="{{index}}"
+          binderror="onImgError"
+        />
+        <view wx:else class="recipe-card__emoji">🍲</view>
+        <view wx:if="{{item._typeLabel}}" class="recipe-card__type">{{item._typeLabel}}</view>
+      </view>
+      <!-- 内容 -->
+      <view class="recipe-card__body">
+        <view class="recipe-card__title">{{item.title}}</view>
+        <view class="recipe-card__month">{{item._monthText}}</view>
+        <view wx:if="{{item._ingredientSummary}}" class="recipe-card__ings">{{item._ingredientSummary}}</view>
+        <view wx:if="{{item._viewTags.length}}" class="recipe-card__tags">
+          <text
+            wx:for="{{item._viewTags}}"
+            wx:for-item="t"
+            wx:key="name"
+            class="tag {{t.tone}} recipe-card__tag"
+          >{{t.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多状态 -->
+    <view wx:if="{{loadingMore}}" class="list-foot">加载中…</view>
+    <view wx:elif="{{!hasMore}}" class="list-foot">没有更多了</view>
+  </view>
+</view>

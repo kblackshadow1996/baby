@@ -1,0 +1,270 @@
+/* pages/recipe/create/create.wxss —— 创建 / 编辑自建食谱（清新可爱风） */
+.page {
+  padding: 24rpx 24rpx 0;
+}
+.state {
+  padding: 120rpx 0;
+  text-align: center;
+}
+.state__emoji {
+  font-size: 72rpx;
+}
+.state__text {
+  margin-top: 16rpx;
+  color: var(--color-text-sub, #9B9B9B);
+  font-size: 28rpx;
+}
+/* ===== 区块 ===== */
+.section {
+  margin-bottom: 24rpx;
+}
+.section__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text, #4A4A4A);
+  margin-bottom: 20rpx;
+}
+.section__optional {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: var(--color-text-sub, #9B9B9B);
+}
+.section__add {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: var(--color-primary, #FF8FA3);
+}
+/* ===== 图片上传 ===== */
+.uploader {
+  width: 100%;
+  height: 300rpx;
+  border-radius: var(--radius-card, 24rpx);
+  overflow: hidden;
+  background-color: var(--color-pink-soft, #FFE4E1);
+}
+.uploader__img {
+  width: 100%;
+  height: 100%;
+}
+.uploader__empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx dashed var(--color-primary, #FF8FA3);
+  border-radius: var(--radius-card, 24rpx);
+}
+.uploader__plus {
+  font-size: 64rpx;
+  color: var(--color-primary, #FF8FA3);
+  line-height: 1;
+}
+.uploader__hint {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+/* ===== 表单字段 ===== */
+.field {
+  margin-bottom: 28rpx;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+.field--inline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.field--inline .field__label {
+  width: 120rpx;
+  margin-bottom: 0;
+}
+.field--inline .field__input {
+  flex: 1;
+}
+.field__label {
+  display: block;
+  font-size: 26rpx;
+  color: var(--color-text, #4A4A4A);
+  margin-bottom: 14rpx;
+}
+.field__input {
+  width: 100%;
+  height: 76rpx;
+  padding: 0 24rpx;
+  background-color: #F7F7F7;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  color: var(--color-text, #4A4A4A);
+}
+.field__tip {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+.field__picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76rpx;
+  padding: 0 24rpx;
+  background-color: #F7F7F7;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  color: var(--color-text, #4A4A4A);
+}
+.field__picker-arrow {
+  color: var(--color-text-sub, #9B9B9B);
+  font-size: 22rpx;
+}
+/* ===== 月龄区间 ===== */
+.month-range {
+  display: flex;
+  align-items: center;
+}
+.month-range__input {
+  width: 160rpx;
+  text-align: center;
+}
+.month-range__sep {
+  margin: 0 20rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+.month-range__unit {
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+/* ===== 胶囊（分类 / 标签） ===== */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+.chip {
+  padding: 12rpx 32rpx;
+  margin: 0 16rpx 16rpx 0;
+  border-radius: var(--radius-btn, 999rpx);
+  background-color: #F7F7F7;
+  color: var(--color-text-sub, #9B9B9B);
+  font-size: 26rpx;
+}
+.chip--on {
+  background-color: var(--color-primary, #FF8FA3);
+  color: #FFFFFF;
+}
+/* ===== 食材行 ===== */
+.ing-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18rpx;
+}
+.ing-row__name {
+  flex: 1.4;
+  height: 72rpx;
+  padding: 0 20rpx;
+  background-color: #F7F7F7;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+}
+.ing-row__amount {
+  flex: 1;
+  height: 72rpx;
+  padding: 0 20rpx;
+  margin-left: 14rpx;
+  background-color: #F7F7F7;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+}
+.ing-row__allergen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 14rpx;
+}
+.ing-row__allergen-label {
+  font-size: 20rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+.ing-row__allergen switch {
+  transform: scale(0.7);
+}
+.ing-row__del {
+  margin-left: 10rpx;
+  width: 44rpx;
+  text-align: center;
+  color: var(--color-warning, #FF6B6B);
+  font-size: 30rpx;
+}
+/* ===== 步骤行 ===== */
+.step-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 18rpx;
+}
+.step-row__no {
+  flex: none;
+  width: 44rpx;
+  height: 44rpx;
+  margin-top: 16rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary, #FF8FA3);
+  color: #FFFFFF;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 44rpx;
+}
+.step-row__text {
+  flex: 1;
+  min-height: 76rpx;
+  padding: 18rpx 20rpx;
+  margin-left: 16rpx;
+  background-color: #F7F7F7;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+.step-row__del {
+  margin-left: 10rpx;
+  margin-top: 20rpx;
+  width: 44rpx;
+  text-align: center;
+  color: var(--color-warning, #FF6B6B);
+  font-size: 30rpx;
+}
+/* ===== 删除按钮 ===== */
+.delete-row {
+  padding: 8rpx 0 16rpx;
+}
+.delete-btn {
+  text-align: center;
+  padding: 24rpx 0;
+  color: var(--color-warning, #FF6B6B);
+  font-size: 28rpx;
+}
+/* ===== 底部保存栏 ===== */
+.page__spacer {
+  height: 160rpx;
+}
+.savebar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx;
+  background-color: var(--color-card, #FFFFFF);
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.04);
+  z-index: 10;
+}
+.savebar__btn {
+  width: 100%;
+  padding: 24rpx 0;
+  font-size: 32rpx;
+}
+.savebar__btn--disabled {
+  opacity: 0.6;
+}

@@ -1,0 +1,44 @@
+.nav-bar {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(135deg, #FFE4E1 0%, #FFF8F6 100%);
+  /* Task18：极浅底部分隔，白底页面下轻微区隔内容 */
+  box-shadow: 0 2rpx 8rpx rgba(255, 143, 163, 0.08);
+}
+.nav-bar__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.nav-bar__title {
+  max-width: 60%;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #4A4A4A;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.nav-bar__back {
+  position: absolute;
+  left: 8rpx;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Task18：保证点击区域 ≥88rpx，便于点按 */
+  width: 88rpx;
+  transition: opacity .15s ease;
+}
+.nav-bar__back:active {
+  opacity: 0.6;
+}
+.nav-bar__back-icon {
+  font-size: 56rpx;
+  line-height: 1;
+  color: #4A4A4A;
+}

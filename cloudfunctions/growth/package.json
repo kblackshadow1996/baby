@@ -1,0 +1,12 @@
+{
+  "name": "growth",
+  "version": "1.0.0",
+  "description": "成长记录云函数：list/add/update/delete 统一入口，权限校验在云端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test\" && exit 0"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,181 @@
+/* pages/family/invite/invite.wxss —— 邀请家人 / 接受邀请 */
+.page {
+  padding: 24rpx;
+}
+.hint {
+  padding: 40rpx 0;
+  text-align: center;
+  color: var(--color-text-sub, #9B9B9B);
+  font-size: 28rpx;
+}
+
+/* ===== 区块通用 ===== */
+.section {
+  margin-bottom: 24rpx;
+}
+.section__title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text, #4A4A4A);
+  margin-bottom: 20rpx;
+}
+.picker-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  padding: 0 24rpx;
+  background-color: var(--color-bg, #FFF8F6);
+  border-radius: 16rpx;
+  font-size: 28rpx;
+}
+.picker-field__arrow {
+  color: var(--color-text-sub, #9B9B9B);
+  transform: rotate(90deg);
+}
+
+/* ===== 权限选择 ===== */
+.perm-group {
+  display: flex;
+  gap: 20rpx;
+}
+.perm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  border-radius: 16rpx;
+  background-color: var(--color-bg, #FFF8F6);
+  border: 2rpx solid transparent;
+}
+.perm--active {
+  background-color: var(--color-pink-soft, #FFE4E1);
+  border-color: var(--color-primary, #FF8FA3);
+}
+.perm__name {
+  font-size: 28rpx;
+  color: var(--color-text, #4A4A4A);
+  margin-bottom: 8rpx;
+}
+.perm--active .perm__name {
+  color: var(--color-primary, #FF8FA3);
+  font-weight: 600;
+}
+.perm__desc {
+  font-size: 22rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+
+/* ===== 邀请码大字卡 ===== */
+.code-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24rpx;
+  background-color: var(--color-pink-soft, #FFE4E1);
+}
+.code-card__label {
+  font-size: 26rpx;
+  color: var(--color-text-sub, #9B9B9B);
+  margin-bottom: 12rpx;
+}
+.code-card__code {
+  font-size: 72rpx;
+  font-weight: 700;
+  letter-spacing: 12rpx;
+  color: var(--color-primary, #FF8FA3);
+  padding-left: 12rpx;
+}
+.code-card__expire {
+  font-size: 24rpx;
+  color: var(--color-text-sub, #9B9B9B);
+  margin-top: 12rpx;
+}
+.code-card__actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 28rpx;
+  width: 100%;
+}
+.code-card__btn {
+  flex: 1;
+}
+
+/* ===== 生成按钮 ===== */
+.actions {
+  margin: 8rpx 0 24rpx;
+}
+
+/* ===== 手动加入 ===== */
+.join-row {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+.join-input {
+  flex: 1;
+  height: 80rpx;
+  padding: 0 24rpx;
+  background-color: var(--color-bg, #FFF8F6);
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  text-transform: uppercase;
+}
+.join-btn {
+  width: 160rpx;
+  padding: 20rpx 0;
+}
+
+/* ===== 接受邀请卡 ===== */
+.accept-card {
+  display: flex;
+  flex-direction: column;
+}
+.accept-card__baby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24rpx;
+  border-bottom: 2rpx solid var(--color-bg, #FFF8F6);
+}
+.accept-card__avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-bottom: 16rpx;
+}
+.accept-card__avatar--emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64rpx;
+  background-color: var(--color-pink-soft, #FFE4E1);
+}
+.accept-card__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--color-text, #4A4A4A);
+}
+.accept-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  border-bottom: 2rpx solid var(--color-bg, #FFF8F6);
+}
+.accept-card__label {
+  font-size: 28rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+.accept-card__value {
+  font-size: 28rpx;
+  color: var(--color-text, #4A4A4A);
+}
+.accept-card__actions {
+  margin-top: 32rpx;
+}
+.accept-card__invalid {
+  margin-top: 32rpx;
+  text-align: center;
+}

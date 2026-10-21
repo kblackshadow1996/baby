@@ -1,0 +1,285 @@
+/* pages/growth/growth.wxss —— 成长曲线 */
+.page {
+  padding: 24rpx;
+}
+
+/* ===== 最新数据卡 ===== */
+.latest {
+  margin-bottom: 24rpx;
+}
+.latest__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+.latest__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.latest__date {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.latest__grid {
+  display: flex;
+  justify-content: space-around;
+}
+.latest__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.latest__num {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+.latest__label {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.latest__none {
+  padding: 16rpx 0;
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+
+/* ===== 指标 tab ===== */
+.tabs {
+  display: flex;
+  background-color: var(--color-card);
+  border-radius: var(--radius-btn);
+  padding: 6rpx;
+  margin-bottom: 24rpx;
+  box-shadow: var(--shadow-card);
+}
+.tabs__item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+  color: var(--color-text-sub);
+  border-radius: var(--radius-btn);
+  transition: all 0.2s;
+}
+.tabs__item--active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ===== 曲线图 ===== */
+.chart {
+  margin-bottom: 24rpx;
+}
+.chart__box {
+  position: relative;
+  width: 100%;
+  height: 480rpx;
+}
+.chart__canvas {
+  width: 100%;
+  height: 480rpx;
+}
+.chart__empty {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 32rpx;
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx 24rpx;
+  margin-top: 20rpx;
+}
+.legend__item {
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+}
+.legend__dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+}
+.legend__dot--baby {
+  background-color: var(--color-primary);
+}
+.legend__line {
+  width: 28rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  margin-right: 8rpx;
+}
+.legend__line--p50 {
+  background-color: #c77b8b;
+}
+.legend__line--ref {
+  background-color: #f3c6ce;
+}
+.chart__note {
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+  line-height: 1.5;
+}
+
+/* ===== 历史记录列表 ===== */
+.history {
+  margin-bottom: 24rpx;
+}
+.history__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 8rpx 16rpx;
+}
+.history__title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.history__count {
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+}
+.history__empty {
+  padding: 40rpx 0;
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+.history__item {
+  position: relative;
+  margin-bottom: 16rpx;
+  padding: 24rpx 28rpx;
+}
+.history__date {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 12rpx;
+}
+.history__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx 24rpx;
+}
+.history__m {
+  font-size: 26rpx;
+  color: var(--color-text-sub);
+}
+.history__edit {
+  position: absolute;
+  right: 28rpx;
+  top: 24rpx;
+  font-size: 24rpx;
+  color: var(--color-primary);
+}
+
+/* ===== 浮动添加按钮 ===== */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 80rpx;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: 56rpx;
+  line-height: 96rpx;
+  text-align: center;
+  box-shadow: 0 12rpx 28rpx rgba(255, 143, 163, 0.4);
+  z-index: 20;
+}
+
+/* ===== 添加/编辑弹层 ===== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: flex-end;
+  z-index: 100;
+}
+.modal__panel {
+  width: 100%;
+  background-color: var(--color-card);
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 36rpx 36rpx calc(36rpx + env(safe-area-inset-bottom));
+}
+.modal__title {
+  font-size: 32rpx;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 28rpx;
+}
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.field__label {
+  width: 180rpx;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.field__picker,
+.field__input {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  padding: 0 24rpx;
+  background-color: var(--color-bg);
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.field__hint {
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+  margin-bottom: 28rpx;
+  padding-left: 4rpx;
+}
+.modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+.modal__del {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-radius: var(--radius-btn);
+  font-size: 28rpx;
+  padding: 18rpx 32rpx;
+  line-height: 1.4;
+  border: none;
+}
+.modal__del::after {
+  border: none;
+}
+.modal__cancel {
+  flex: 1;
+}
+.modal__save {
+  flex: 1;
+}

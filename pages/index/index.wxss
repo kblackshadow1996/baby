@@ -1,0 +1,420 @@
+/* pages/index/index.wxss —— 首页（Task 4 完整版） */
+.page {
+  padding: 24rpx;
+}
+.card {
+  margin-bottom: 24rpx;
+}
+
+/* ===== 加载态 ===== */
+.index__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 160rpx 0;
+}
+.index__loading-emoji {
+  font-size: 72rpx;
+  line-height: 1;
+  opacity: 0.6;
+}
+.index__loading-text {
+  margin-top: 20rpx;
+}
+
+/* ===== 1. 宝贝信息区 ===== */
+.index__baby {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  background-image: linear-gradient(135deg, #FFE4E1 0%, #FFF1F3 60%, #FFFFFF 100%);
+}
+.index__baby-avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background-color: var(--color-pink-soft, #FFE4E1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(255, 143, 163, 0.18);
+}
+.index__baby-avatar-img {
+  width: 100%;
+  height: 100%;
+}
+.index__baby-emoji {
+  font-size: 60rpx;
+  line-height: 1;
+}
+.index__baby-info {
+  flex: 1;
+  margin-left: 24rpx;
+  min-width: 0;
+}
+.index__baby-line {
+  align-items: center;
+}
+.index__baby-line + .index__baby-line {
+  margin-top: 10rpx;
+}
+.index__baby-name {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.index__baby-gender {
+  margin-left: 14rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  font-size: 26rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.index__baby-gender--boy {
+  background-color: var(--color-blue-soft, #E0F0FF);
+  color: #5B9BD5;
+}
+.index__baby-gender--girl {
+  background-color: var(--color-pink-soft, #FFE4E1);
+  color: var(--color-primary, #FF8FA3);
+}
+.index__baby-age {
+  font-size: 26rpx;
+}
+.index__baby-month {
+  font-size: 26rpx;
+}
+.index__baby-switch {
+  position: absolute;
+  top: 24rpx;
+  right: 24rpx;
+  flex-shrink: 0;
+  font-size: 24rpx;
+  color: var(--color-primary, #FF8FA3);
+}
+
+/* ===== 2. 月龄阶段卡 ===== */
+.index__stage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--color-green-soft, #E8F5E9);
+}
+.index__stage-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.index__stage-emoji {
+  font-size: 52rpx;
+  line-height: 1;
+}
+.index__stage-info {
+  flex: 1;
+  margin-left: 24rpx;
+  min-width: 0;
+}
+.index__stage-title {
+  align-items: center;
+}
+.index__stage-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.index__stage-range {
+  margin-left: 16rpx;
+}
+.index__stage-tip {
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+.index__stage-arrow {
+  flex-shrink: 0;
+  margin-left: 12rpx;
+  font-size: 40rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+
+/* ===== 3. 今日餐次摘要卡 ===== */
+.index__today-head {
+  margin-bottom: 8rpx;
+}
+.index__today-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.index__meals {
+  margin-top: 12rpx;
+}
+.index__meal-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #F3F3F3;
+}
+.index__meal-item:last-child {
+  border-bottom: none;
+}
+.index__meal-left {
+  align-items: center;
+}
+.index__meal-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background-color: var(--color-yellow-soft, #FFF8E1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.index__meal-name {
+  font-size: 28rpx;
+  color: var(--color-text, #4A4A4A);
+}
+.index__meal-status {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+}
+.index__meal-action {
+  flex-shrink: 0;
+  font-size: 26rpx;
+  color: var(--color-primary, #FF8FA3);
+}
+
+/* 纯奶期温馨提示 */
+.index__milk-tip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 12rpx;
+  padding: 24rpx;
+  border-radius: var(--radius-card, 24rpx);
+  background-color: var(--color-blue-soft, #E0F0FF);
+}
+.index__milk-emoji {
+  font-size: 44rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.index__milk-text {
+  font-size: 26rpx;
+  color: #5B9BD5;
+}
+
+/* ===== 4. 快捷功能入口网格 ===== */
+.index__grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.index__grid-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 0 24rpx;
+}
+.index__grid-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+.index__grid-emoji {
+  font-size: 48rpx;
+  line-height: 1;
+}
+.index__grid-icon--pink {
+  background-color: var(--color-pink-soft, #FFE4E1);
+}
+.index__grid-icon--blue {
+  background-color: var(--color-blue-soft, #E0F0FF);
+}
+.index__grid-icon--green {
+  background-color: var(--color-green-soft, #E8F5E9);
+}
+.index__grid-icon--yellow {
+  background-color: var(--color-yellow-soft, #FFF8E1);
+}
+.index__grid-icon--warning {
+  background-color: var(--color-warning-bg, #FFF0F0);
+}
+.index__grid-label {
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  color: var(--color-text, #4A4A4A);
+}
+
+/* ===== 5. 无宝贝引导 ===== */
+.index__empty-action {
+  margin-top: 8rpx;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== 过敏提醒卡（淡红） ===== */
+.index__allergy {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--color-warning-bg, #FFF0F0);
+  border: 2rpx solid rgba(255, 107, 107, 0.25);
+}
+.index__allergy-emoji {
+  font-size: 44rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.index__allergy-info {
+  flex: 1;
+  min-width: 0;
+}
+.index__allergy-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--color-warning, #FF6B6B);
+}
+.index__allergy-names {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub, #9B9B9B);
+}
+.index__allergy-arrow {
+  flex-shrink: 0;
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-warning, #FF6B6B);
+}
+
+/* ===== 今日餐次：已记录态 ===== */
+.index__meal-status--done {
+  color: #6CC08B;
+}
+.index__meal-done {
+  flex-shrink: 0;
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background-color: var(--color-green-soft, #E8F5E9);
+  color: #6CC08B;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== 推荐食谱横向卡 ===== */
+.index__recommend {
+  margin-bottom: 24rpx;
+}
+.index__recommend-head {
+  margin-bottom: 16rpx;
+  padding: 0 4rpx;
+}
+.index__recommend-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text, #4A4A4A);
+}
+.index__recommend-more {
+  font-size: 24rpx;
+  color: var(--color-primary, #FF8FA3);
+}
+.index__recommend-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+.index__recommend-row {
+  display: inline-flex;
+  flex-direction: row;
+}
+.index__recipe-card {
+  display: inline-flex;
+  flex-direction: column;
+  width: 220rpx;
+  margin-right: 20rpx;
+  background-color: var(--color-card, #FFFFFF);
+  border-radius: var(--radius-card, 24rpx);
+  box-shadow: var(--shadow-card, 0 8rpx 24rpx rgba(255, 143, 163, 0.12));
+  padding: 16rpx;
+}
+.index__recipe-card:last-child {
+  margin-right: 4rpx;
+}
+.index__recipe-cover {
+  width: 100%;
+  height: 160rpx;
+  border-radius: 16rpx;
+  background-color: var(--color-yellow-soft, #FFF8E1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.index__recipe-cover-img {
+  width: 100%;
+  height: 100%;
+}
+.index__recipe-cover-emoji {
+  font-size: 56rpx;
+  line-height: 1;
+}
+.index__recipe-name {
+  margin-top: 14rpx;
+  font-size: 26rpx;
+  color: var(--color-text, #4A4A4A);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.index__recipe-month {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+}
+
+/* ===== 骨架占位 ===== */
+.index__skeleton {
+  background-color: #EEEEEE;
+  border-radius: 12rpx;
+}
+.index__skeleton--circle {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.index__skeleton--line {
+  width: 220rpx;
+  height: 26rpx;
+  margin: 6rpx 0;
+}
+.index__skeleton--short {
+  width: 140rpx;
+}
+.index__recipe-cover.index__skeleton {
+  background-color: #EEEEEE;
+}

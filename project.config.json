@@ -1,0 +1,26 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "riceball-grow",
+  "description": "小饭团成长记 - 0-3岁宝宝辅食记录小程序",
+  "appid": "touristappid",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useCompilerPlugins": false,
+    "nodeModules": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest",
+  "condition": {}
+}

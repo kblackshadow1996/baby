@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar",
+    "baby-card": "/components/baby-card/baby-card",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

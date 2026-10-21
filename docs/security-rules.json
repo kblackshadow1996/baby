@@ -1,0 +1,42 @@
+{
+  "users": {
+    ".read": "doc._openid == auth.openid",
+    ".write": "doc._openid == auth.openid"
+  },
+  "recipes": {
+    ".read": "doc.isOfficial == true || auth.openid == doc.creatorOpenid",
+    ".write": "auth.openid != null && auth.openid == doc.creatorOpenid && doc.isOfficial != true"
+  },
+  "babies": {
+    ".read": "doc.ownerId == auth.openid",
+    ".write": "doc.ownerId == auth.openid"
+  },
+  "family_members": {
+    ".read": false,
+    ".write": false
+  },
+  "invitations": {
+    ".read": false,
+    ".write": false
+  },
+  "meal_records": {
+    ".read": "doc.recorderOpenid == auth.openid",
+    ".write": "doc.recorderOpenid == auth.openid"
+  },
+  "allergy_records": {
+    ".read": "doc.recorderOpenid == auth.openid",
+    ".write": "doc.recorderOpenid == auth.openid"
+  },
+  "allergy_alerts": {
+    ".read": false,
+    ".write": false
+  },
+  "growth_records": {
+    ".read": "doc.recorderOpenid == auth.openid",
+    ".write": "doc.recorderOpenid == auth.openid"
+  },
+  "food_timeline": {
+    ".read": false,
+    ".write": false
+  }
+}

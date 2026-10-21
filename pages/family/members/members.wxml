@@ -1,0 +1,64 @@
+<nav-bar title="家庭成员" showBack="{{true}}" />
+<view class="page safe-bottom">
+
+  <!-- 无当前宝贝 -->
+  <block wx:if="{{!hasBaby}}">
+    <empty-state icon="🍼" text="还没有宝贝，先去创建一个吧" />
+    <view class="center-action">
+      <navigator url="/pages/baby/manage/manage" open-type="navigate">
+        <view class="btn-primary">去宝贝管理</view>
+      </navigator>
+    </view>
+  </block>
+
+  <block wx:else>
+    <!-- 顶部：宝贝名 + 邀请按钮（仅 owner） -->
+    <view class="card head">
+      <view class="head__baby">
+        <image wx:if="{{baby.avatarUrl}}" class="head__avatar" src="{{baby.avatarUrl}}" mode="aspectFill" />
+        <text wx:else class="head__avatar head__avatar--emoji">🍼</text>
+        <view class="head__info">
+          <view class="head__name">{{baby.name}}的家庭</view>
+          <view class="head__count">{{members.length}} 位成员</view>
+        </view>
+      </view>
+      <button wx:if="{{isOwner}}" class="btn-primary head__invite" bindtap="onInvite">邀请家人</button>
+    </view>
+
+    <!-- 成员列表 -->
+    <view class="list">
+      <view wx:for="{{members}}" wx:key="_id" class="card member" data-id="{{item._id}}" data-owner="{{item.isOwner}}" bindtap="onEditMember">
+        <image wx:if="{{item.avatarUrl}}" class="member__avatar" src="{{item.avatarUrl}}" mode="aspectFill" />
+        <text wx:else class="member__avatar member__avatar--emoji">👤</text>
+        <view class="member__main">
+          <view class="member__line">
+            <text class="member__name">{{item.nickName || '微信用户'}}</text>
+            <text wx:if="{{item.isSelf}}" class="member__me">我</text>
+          </view>
+          <view class="member__tags">
+            <text class="tag">{{item.roleLabel}}</text>
+            <text class="tag {{item.permissions === 'edit' ? 'tag-green' : 'tag-blue'}}">{{item.permissionLabel}}</text>
+            <text wx:if="{{item.isOwner}}" class="tag tag-yellow">创建者</text>
+          </view>
+        </view>
+        <view
+          wx:if="{{item.canManage}}"
+          class="member__remove"
+          catchtap="onRemoveMember"
+          data-id="{{item._id}}"
+          data-name="{{item.nickName || '微信用户'}}"
+        >移除</view>
+      </view>
+    </view>
+
+    <!-- 只有自己 -->
+    <view wx:if="{{onlySelf && isOwner}}" class="only-self">
+      <empty-state icon="👨‍👩‍👧" text="还没有其他家人，邀请他们一起记录吧" />
+      <view class="center-action">
+        <button class="btn-primary" bindtap="onInvite">邀请家人</button>
+      </view>
+    </view>
+    <view wx:elif="{{isOwner}}" class="manage-tip">点击成员可修改角色与权限</view>
+  </block>
+
+</view>

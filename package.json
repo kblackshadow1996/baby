@@ -1,0 +1,13 @@
+{
+  "name": "riceball-grow",
+  "version": "1.0.0",
+  "description": "小饭团成长记 - 0-3岁宝宝辅食记录小程序",
+  "scripts": {
+    "test": "jest",
+    "gen:recipes": "node data/_gen_recipes.js",
+    "sync:recipes": "node scripts/sync-recipes.js"
+  },
+  "devDependencies": {
+    "jest": "^29"
+  }
+}
